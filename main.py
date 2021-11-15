@@ -1,6 +1,7 @@
 from package import Stack
 from package import Queue
 from tkinter import *
+import json
 
 # ref. https://stackabuse.com/insertion-sort-in-python/
 def insertion_sort(array):
@@ -22,10 +23,19 @@ def insertion_sort(array):
         # Either way - we insert the element at currentPosition
         array[currentPosition] = currentValue
 
+def read_Json(filename):
+    with open(filename) as file:
+        data = json.load(file)
+    print(data)
+    return data
+    # return data as dict in dict in dict in ...
 
 
 if __name__=='__main__':
     ####################
     ### main is here ###
     ####################
-    pass
+    
+    # example use of read_Json()
+    data = read_Json('Data.json')
+    print(data)
