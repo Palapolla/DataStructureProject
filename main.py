@@ -1,6 +1,10 @@
 from package import Stack
 from package import Queue
 from tkinter import *
+
+
+from tkinter import ttk
+
 import json
 
 # ref. https://stackabuse.com/insertion-sort-in-python/
@@ -36,6 +40,69 @@ if __name__=='__main__':
     ### main is here ###
     ####################
     
+
     # example use of read_Json()
     data = read_Json('Data.json')
     print(data)
+
+    root = Tk()
+    root.title('Book MEEE')
+    root.geometry("1024x768")
+
+        ###################
+    ### --- Table Frame --- ###
+        ###################
+    table_Frame = LabelFrame(root,text="Data")
+    table_Frame.pack(fill='both')
+
+    # scrollbar
+    # x
+    table_scrollbarx = Scrollbar(table_Frame,orient='horizontal')
+    table_scrollbarx.pack(side=BOTTOM, fill=X)
+    # y
+    table_scrollbary = Scrollbar(table_Frame,orient='vertical')
+    table_scrollbary.pack(side= RIGHT,fill=Y)
+
+    # table datas
+    table = ttk.Treeview(table_Frame,yscrollcommand=table_scrollbary.set, xscrollcommand =table_scrollbarx.set)
+    table['columns'] = ('Room Type', 'Room ID', 'Date00', 'Date01', 'Date02', 'Date03', 'Date04', 'Date05', 'Date06',
+                        'Date07', 'Date08', 'Date09', 'Date10')
+    
+    table_scrollbary.config(command=table.yview)
+    table_scrollbarx.config(command=table.xview)
+
+    # define column
+    table.column("#0", width=0,  stretch=True)
+    for col in table['columns']:
+        print(col)
+        table.column(col,anchor=CENTER, width=80)
+    # create heading
+    table.heading("#0",text="",anchor=CENTER)
+    for col in table['columns']:
+        table.heading(col,text=col,anchor=CENTER)
+    # insert by table.insert(parent='',index='',iid=,text='', values=())
+
+    table.pack()
+
+        #####################
+    ### --- search Frame --- ###
+        ####################
+    search_Frame=LabelFrame(root,text="search")
+    search_Frame.pack(fill='both')
+
+    # Search frame's elements
+    Search_button = Button(search_Frame,text='Search')
+    Search_box = Entry(search_Frame,bd=3,width=30)
+
+    Search_box.pack(side='left',padx=10,pady=10)
+    Search_button.pack(side='left')
+
+
+    book_Frame = LabelFrame(root,text="book")
+    book_Frame.pack(fill="both",expand='yes')
+    Book_button = Button(book_Frame,text='Book')
+    Book_button.pack()
+
+
+    root.mainloop()
+
