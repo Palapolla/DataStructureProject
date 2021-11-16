@@ -33,50 +33,61 @@ if __name__=='__main__':
     
     root = Tk()
     root.title('Book MEEE')
-    root.geometry("800x400")
+    root.geometry("1024x768")
 
-        ########################
-    ### Buttons & text boxs zone ###
-        ########################
-    Search_box = Entry(root,bd=3,width=30)
-    Search_box.grid(row=0,column=2,sticky="ne")
-    Book_button = Button(text='Book')
-    Book_button.grid(row=0,column=2,sticky="nw")
-    Search_button = Button(text='Search')
-    Search_button.grid(row=0,column=2,sticky="ne")
+        ###################
+    ### --- Table Frame --- ###
+        ###################
+    table_Frame = LabelFrame(root,text="Data")
+    table_Frame.pack(fill='both')
+
+    # scrollbar
+    # x
+    table_scrollbarx = Scrollbar(table_Frame,orient='horizontal')
+    table_scrollbarx.pack(side=BOTTOM, fill=X)
+    # y
+    table_scrollbary = Scrollbar(table_Frame,orient='vertical')
+    table_scrollbary.pack(side= RIGHT,fill=Y)
+
+    # table datas
+    table = ttk.Treeview(table_Frame,yscrollcommand=table_scrollbary.set, xscrollcommand =table_scrollbarx.set)
+    table['columns'] = ('Room Type', 'Room ID', 'Date00', 'Date01', 'Date02', 'Date03', 'Date04', 'Date05', 'Date06',
+                        'Date07', 'Date08', 'Date09', 'Date10')
     
+    table_scrollbary.config(command=table.yview)
+    table_scrollbarx.config(command=table.xview)
 
-    table_Frame = Frame(root)
-    table_Frame.grid(row=0,column=0,sticky="nw")
-
-    table = ttk.Treeview(table_Frame)
-    table['columns'] = ('Room Type', 'Room ID', 'Date00', 'Date01', 'Date02', 'Date03', 'Date04', 'Date05')
-
+    # define column
     table.column("#0", width=0,  stretch=True)
     for col in table['columns']:
+        print(col)
         table.column(col,anchor=CENTER, width=80)
-
+    # create heading
     table.heading("#0",text="",anchor=CENTER)
     for col in table['columns']:
         table.heading(col,text=col,anchor=CENTER)
+    # insert by table.insert(parent='',index='',iid=,text='', values=())
 
     table.pack()
 
-    # make objet position relate to window size
-    # row & column of Tkinter 
-    # col = [0,1,2]
-    # row = [0,1,2,3]
-    
-    element_list = [Book_button,Search_button,Search_box]
-    
-    row_num = 0
-    for ele in element_list:
-        root.grid_rowconfigure(row_num,weight=1)
-        row_num += 1
-    
-    col_num = 0
-    for ele in element_list:
-        root.grid_columnconfigure(col_num,weight=1)
-        col_num += 1
+        #####################
+    ### --- search Frame --- ###
+        ####################
+    search_Frame=LabelFrame(root,text="search")
+    search_Frame.pack(fill='both')
+
+    # Search frame's elements
+    Search_button = Button(search_Frame,text='Search')
+    Search_box = Entry(search_Frame,bd=3,width=30)
+
+    Search_box.pack(side='left',padx=10,pady=10)
+    Search_button.pack(side='left')
+
+
+    book_Frame = LabelFrame(root,text="book")
+    book_Frame.pack(fill="both",expand='yes')
+    Book_button = Button(book_Frame,text='Book')
+    Book_button.pack()
+
 
     root.mainloop()
