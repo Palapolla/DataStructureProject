@@ -73,11 +73,12 @@ if __name__ == '__main__':
     # table datas
     table = ttk.Treeview(
         table_Frame, yscrollcommand=table_scrollbary.set, xscrollcommand=table_scrollbarx.set)
-    table['columns'] = ('Room Type', 'Room ID', 'Date00', 'Date01', 'Date02', 'Date03', 'Date04', 'Date05', 'Date06',
-                        'Date07', 'Date08', 'Date09', 'Date10')
 
     table_scrollbary.config(command=table.yview)
     table_scrollbarx.config(command=table.xview)
+
+    table['columns'] = ('Room Type', 'Room ID', 'Date00', 'Date01', 'Date02', 'Date03', 'Date04', 'Date05', 'Date06',
+                        'Date07', 'Date08', 'Date09', 'Date10')
 
     # define column
     table.column("#0", width=0,  stretch=True)
@@ -104,19 +105,33 @@ if __name__ == '__main__':
         #####################
     ### --- search Frame --- ###
         ####################
-    search_Frame = LabelFrame(root, text="search")
-    search_Frame.pack(fill='both')
+    search_Frame = LabelFrame(root, text="search",padx=100)
+    search_Frame.pack(fill='both',expand=NO)
 
     # Search frame's elements
     Search_button = Button(search_Frame, text='Search')
     Search_box = Entry(search_Frame, bd=3, width=30)
 
-    Search_box.pack(side='left', padx=10, pady=10)
-    Search_button.pack(side='left')
 
-    book_Frame = LabelFrame(root, text="book")
+    message ="result here"
+
+    text_box = Text(search_Frame,height=12,width=40)
+    text_box.insert('end', message)
+    text_box.config(state='disabled')
+
+    text_box.pack(side='left',padx=10,pady=10)
+    Search_box.pack(side='left')
+    Search_button.pack(side='left',padx=10)
+        #####################
+    ### ---- Book Frame ---- ###
+        ####################
+    book_Frame = LabelFrame(root, text="book",padx=100)
     book_Frame.pack(fill="both", expand='yes')
+
     Book_button = Button(book_Frame, text='Book')
-    Book_button.pack()
+    book_box = Entry(book_Frame, bd=3, width=30)
+
+    book_box.pack(side='left')
+    Book_button.pack(side='left',padx=10)
 
     root.mainloop()
