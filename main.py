@@ -106,22 +106,27 @@ if __name__ == '__main__':
     ### --- search Frame --- ###
         ####################
     search_Frame = LabelFrame(root, text="search",padx=100)
+    searchbox_Frame = Frame(search_Frame)
+    result_Frame = Frame(search_Frame)
     search_Frame.pack(fill='both',expand=NO)
+    searchbox_Frame.pack(side='right',expand=YES)
+    result_Frame.pack(side='left',expand=YES)
 
     # Search frame's elements
-    Search_button = Button(search_Frame, text='Search')
-    Search_box = Entry(search_Frame, bd=3, width=30)
+    Search_button = Button(searchbox_Frame, text='Search')
+    Search_box = Entry(searchbox_Frame, bd=3, width=30)
 
 
     message ="result here"
 
-    text_box = Text(search_Frame,height=12,width=40)
+    text_box = Text(result_Frame,height=12)
     text_box.insert('end', message)
     text_box.config(state='disabled')
 
     text_box.pack(side='left',padx=10,pady=10)
     Search_box.pack(side='left')
     Search_button.pack(side='left',padx=10)
+
         #####################
     ### ---- Book Frame ---- ###
         ####################
@@ -158,4 +163,7 @@ if __name__ == '__main__':
     date_label2.pack(side='left')
     date_box2.pack(side='left')
     Book_button.pack(side='left',padx=10)
+
+
+
     root.mainloop()
