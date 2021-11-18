@@ -125,13 +125,37 @@ if __name__ == '__main__':
         #####################
     ### ---- Book Frame ---- ###
         ####################
-    book_Frame = LabelFrame(root, text="book",padx=100)
+    book_Frame = LabelFrame(root, text="book",padx=100,pady=50)
     book_Frame.pack(fill="both", expand='yes')
+    name_Frame = Frame(book_Frame)
+    name_Frame.pack(fill=BOTH,pady=10)
+    room_Frame = Frame(book_Frame)
+    room_Frame.pack(fill=BOTH,pady=10)
+    date_Frame = Frame(book_Frame)
+    date_Frame.pack(fill=BOTH,pady=10)
 
-    Book_button = Button(book_Frame, text='Book')
-    book_box = Entry(book_Frame, bd=3, width=30)
+    name_label = Label(name_Frame,text='Name : ')
+    name_box = Entry(name_Frame, bd=3, width=30)
+    surname_label = Label(name_Frame,text="Surname : ")
+    surname_box = Entry(name_Frame,bd=3,width=30)
+    roomType_label = Label(room_Frame,text='Room Type : ')
+    roomType_box = Entry(room_Frame, bd=3, width=30)
+    date_label1 = Label(date_Frame,text='From ')
+    date_label2 = Label(date_Frame,text='   -   ')
+    date_box1 = Entry(date_Frame,bd=3,width=30)
+    date_box2 = Entry(date_Frame,bd=3,width=30)
+    Book_button = Button(date_Frame, text='Book')
 
-    book_box.pack(side='left')
+
+    roomType_label.pack(side='left')
+    roomType_box.pack(side='left')
+    name_label.pack(side='left')
+    name_box.pack(side='left',padx=10)
+    surname_label.pack(side='left')
+    surname_box.pack(side='left',padx=10)
+    date_label1.pack(side='left')
+    date_box1.pack(side='left')
+    date_label2.pack(side='left')
+    date_box2.pack(side='left')
     Book_button.pack(side='left',padx=10)
-
     root.mainloop()
