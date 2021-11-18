@@ -1,107 +1,107 @@
 {
     "Type A":{
-        "01":{
+        "001":{
             "Name":"A",
             "Time":"B",
             "total_cost":"C"
         },
-        "02":{
+        "002":{
             "Name":"A",
             "Time":"B",
             "total_cost":"C"
         },
-        "03":{
+        "003":{
             "Name":"A",
             "Time":"B",
             "total_cost":"C"
         },
-        "04":{
+        "004":{
             "Name":"A",
             "Time":"B",
             "total_cost":"C"
         },
-        "05":{
+        "005":{
             "Name":"A",
             "Time":"B",
             "total_cost":"C"
         }
     },
     "Type B":{
-        "01":{
+        "001":{
             "Name":"A",
             "Time":"B",
             "total_cost":"C"
         },
-        "02":{
+        "002":{
             "Name":"A",
             "Time":"B",
             "total_cost":"C"
         },
-        "03":{
+        "003":{
             "Name":"A",
             "Time":"B",
             "total_cost":"C"
         },
-        "04":{
+        "004":{
             "Name":"A",
             "Time":"B",
             "total_cost":"C"
         },
-        "05":{
+        "005":{
             "Name":"A",
             "Time":"B",
             "total_cost":"C"
         }
     },
     "Type C":{
-        "01":{
+        "001":{
             "Name":"A",
             "Time":"B",
             "total_cost":"C"
         },
-        "02":{
+        "002":{
             "Name":"A",
             "Time":"B",
             "total_cost":"C"
         },
-        "03":{
+        "003":{
             "Name":"A",
             "Time":"B",
             "total_cost":"C"
         },
-        "04":{
+        "004":{
             "Name":"A",
             "Time":"B",
             "total_cost":"C"
         },
-        "05":{
+        "005":{
             "Name":"A",
             "Time":"B",
             "total_cost":"C"
         }
     },
     "Type D":{
-        "01":{
+        "001":{
             "Name":"A",
             "Time":"B",
             "total_cost":"C"
         },
-        "02":{
+        "002":{
             "Name":"A",
             "Time":"B",
             "total_cost":"C"
         },
-        "03":{
+        "003":{
             "Name":"A",
             "Time":"B",
             "total_cost":"C"
         },
-        "04":{
+        "004":{
             "Name":"A",
             "Time":"B",
             "total_cost":"C"
         },
-        "05":{
+        "005":{
             "Name":"A",
             "Time":"B",
             "total_cost":"C"

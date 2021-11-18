@@ -3,10 +3,32 @@ from package import Queue
 from tkinter import *
 from tkinter import ttk
 import json
+import calendar
+
+# Pay respect to the Buddha before coding
+#                            _
+#                         _ooOoo_
+#                        o8888888o
+#                        88" . "88
+#                        (| -_- |)
+#                        O\  =  /O
+#                     ____/`---'\____
+#                   .'  \\|     |//  `.
+#                  /  \\|||  :  |||//  \
+#                 /  _||||| -:- |||||_  \
+#                 |   | \\\  -  /'| |   |
+#                 | \_|  `\`---'//  |_/ |
+#                 \  .-\__ `-. -'__/-.  /
+#               ___`. .'  /--.--\  `. .'___
+#            ."" '<  `.___\_<|>_/___.' _> \"".
+#           | | :  `- \`. ;`. _/; .'/ /  .' ; |
+#           \  \ `-.   \_\_`. _.'_/_/  -' _.' /
+# ===========`-.`___`-.__\ \___  /__.-'_.'_.-'================
+#                         `=--=-'                    hjw
+# if satu 99:
+#   bug = 0
 
 # ref. https://stackabuse.com/insertion-sort-in-python/
-
-
 def insertion_sort(array):
     # We start from 1 since the first element is trivially sorted
     for index in range(1, len(array)):
@@ -25,6 +47,7 @@ def insertion_sort(array):
         # we're trying to insert at index currentPosition - 1.
         # Either way - we insert the element at currentPosition
         array[currentPosition] = currentValue
+
 
 
     #  "Room Type":{
@@ -48,23 +71,39 @@ def get_search_button():
     text_box.insert(1.0, message)
 
 def get_book():
-    global name_box,surname_box,roomType_box,roomId_box,date_box1,date_box2,room_type,room_id
-    name = name_box.get()
-    surname = surname_box.get()
-    roomType = roomType_box.get()
-    roomID = roomId_box.get()
-    dat = [roomType_box.get(),roomId_box.get(),name_box.get(),surname_box.get(),date_box1.get(),date_box2.get()]
+    global name_box,surname_box,room_type_selected,room_ID_selected,date_box1,date_box2,room_type,room_id
+    dat = [room_type_selected.get(),room_ID_selected.get()
+            ,name_box.get(),surname_box.get()
+            ,date_box1.get(),date_box2.get()]
     key = ['Room_Type','Room_ID','Name','Surname','date_1','date_2']
+
     inp_data = {}
+
     for ele in range(len(key)):
         inp_data.update({key[ele] : dat[ele]})
     print(inp_data)
+    data = read_Json('Data.json')
+
+def get_roomType_dropdown(choice):
+    global room_type_selected,r_type_index,room_ID_selected,room_id,roomId_drop
+    choice = room_type_selected.get()
+    print('Room_type',choice)
+
+def get_roomID_dropdown(choice):
+    global room_ID_selected
+    choice = room_ID_selected.get()
+    print('Room_ID',choice)
 
 
+    # ################################## #
+    # ---------------------------------- #
+    # ---------------------------------- #
+    # ---------- main is here ---------- #
+    # ---------------------------------- #
+    # ---------------------------------- #
+    # ################################## #
+    
 if __name__ == '__main__':
-    ####################
-    ### main is here ###
-    ####################
     # example use of read_Json()
     data = read_Json('Data.json')
     room_type = list(data.keys())
@@ -96,7 +135,7 @@ if __name__ == '__main__':
     table_scrollbary.config(command=table.yview)
     table_scrollbarx.config(command=table.xview)
 
-    table['columns'] = ('Room Type', 'Room ID', 'Date00', 'Date01', 'Date02', 'Date03', 'Date04', 'Date05', 'Date06',
+    table['columns'] = ('Room Type', 'Room ID','Name', 'Date00', 'Date01', 'Date02', 'Date03', 'Date04', 'Date05', 'Date06',
                         'Date07', 'Date08', 'Date09', 'Date10')
 
     # define column
@@ -157,23 +196,32 @@ if __name__ == '__main__':
 
     name_label = Label(name_Frame,text='Name : ')
     name_box = Entry(name_Frame, bd=3, width=30)
+
     surname_label = Label(name_Frame,text="Surname : ")
     surname_box = Entry(name_Frame,bd=3,width=30)
+
     roomType_label = Label(room_Frame,text='Room Type : ')
-    roomType_box = Entry(room_Frame, bd=3, width=20)
+    room_type_selected = StringVar()
+    room_type_selected.set(room_type[0])
+    roomType_drop = OptionMenu(room_Frame,room_type_selected,*room_type,command=get_roomType_dropdown)
+
     roomId_label = Label(room_Frame,text="Room ID : ")
-    roomId_box = Entry(room_Frame,bd=3,width=20)
-    date_label1 = Label(date_Frame,text='From ')
+    room_ID_selected = StringVar()
+    room_ID_selected.set(room_id[0][0])
+    roomId_drop = OptionMenu(room_Frame,room_ID_selected,*room_id[0],command=get_roomID_dropdown)
+
+    date_label1 = Label(date_Frame,text='Date : ')
     date_label2 = Label(date_Frame,text='   -   ')
     date_box1 = Entry(date_Frame,bd=3,width=30)
     date_box2 = Entry(date_Frame,bd=3,width=30)
+
     Book_button = Button(date_Frame, text='Book',command=get_book)
 
 
-    roomType_label.pack(side='left',padx=10)
-    roomType_box.pack(side='left')
-    roomId_label.pack(side='left',padx=10)
-    roomId_box.pack(side='left')
+    roomType_label.pack(side='left')
+    roomType_drop.pack(side='left')
+    roomId_label.pack(side='left')
+    roomId_drop.pack(side='left')
     name_label.pack(side='left')
     name_box.pack(side='left',padx=10)
     surname_label.pack(side='left')
@@ -187,5 +235,26 @@ if __name__ == '__main__':
 
 
     root.mainloop()
+
+
+    # ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+    # ░░░░░░░░░░░░░▄▄▄▄▄▄▄░░░░░░░░░
+    # ░░░░░░░░░▄▀▀▀░░░░░░░▀▄░░░░░░░
+    # ░░░░░░░▄▀░░░░░░░░░░░░▀▄░░░░░░
+    # ░░░░░░▄▀░░░░░░░░░░▄▀▀▄▀▄░░░░░
+    # ░░░░▄▀░░░░░░░░░░▄▀░░██▄▀▄░░░░
+    # ░░░▄▀░░▄▀▀▀▄░░░░█░░░▀▀░█▀▄░░░
+    # ░░░█░░█▄▄░░░█░░░▀▄░░░░░▐░█░░░
+    # ░░▐▌░░█▀▀░░▄▀░░░░░▀▄▄▄▄▀░░█░░
+    # ░░▐▌░░█░░░▄▀░░░░░░░░░░░░░░█░░
+    # ░░▐▌░░░▀▀▀░░░░░░░░░░░░░░░░▐▌░
+    # ░░▐▌░░░░░░░░░░░░░░░▄░░░░░░▐▌░
+    # ░░▐▌░░░░░░░░░▄░░░░░█░░░░░░▐▌░
+    # ░░░█░░░░░░░░░▀█▄░░▄█░░░░░░▐▌░
+    # ░░░▐▌░░░░░░░░░░▀▀▀▀░░░░░░░▐▌░
+    # ░░░░█░░░░░░░░░░░░░░░░░░░░░█░░
+    # ░░░░▐▌▀▄░░░░░░░░░░░░░░░░░▐▌░░
+    # ░░░░░█░░▀░░░░░░░░░░░░░░░░▀░░░
+    # ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 
 
