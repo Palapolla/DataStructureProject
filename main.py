@@ -27,6 +27,12 @@ def insertion_sort(array):
         array[currentPosition] = currentValue
 
 
+    #  "Room Type":{
+    #     "Room Number":{
+    #         "Name":"A",
+    #         "Time":"B",
+    #         "total_cost":"C"
+    #     },
 def read_Json(filename):
     with open(filename) as file:
         data = json.load(file)
@@ -34,23 +40,36 @@ def read_Json(filename):
     return data
     # return data as dict in dict in dict in ...
 
+def get_search_button():
+    global Search_box,text_box
+    message = Search_box.get()
+    print(message,type(message))
+    text_box.delete(1.0,"end")
+    text_box.insert(1.0, message)
+
+def get_book():
+    global name_box,surname_box,roomType_box,roomId_box,date_box1,date_box2,room_type,room_id
+    name = name_box.get()
+    surname = surname_box.get()
+    roomType = roomType_box.get()
+    roomID = roomId_box.get()
+    dat = [roomType_box.get(),roomId_box.get(),name_box.get(),surname_box.get(),date_box1.get(),date_box2.get()]
+    key = ['Room_Type','Room_ID','Name','Surname','date_1','date_2']
+    inp_data = {}
+    for ele in range(len(key)):
+        inp_data.update({key[ele] : dat[ele]})
+    print(inp_data)
+
 
 if __name__ == '__main__':
     ####################
     ### main is here ###
     ####################
-
-    #  "Room Type":{
-    #     "Room Number":{
-    #         "Name":"A",
-    #         "Time":"B",
-    #         "total_cost":"C"
-    #     },
-
     # example use of read_Json()
     data = read_Json('Data.json')
     room_type = list(data.keys())
     room_id = [list(data[i].keys()) for i in room_type]
+    print(room_type,room_id)
 
     root = Tk()
     root.title('Book MEEE')
@@ -113,15 +132,12 @@ if __name__ == '__main__':
     result_Frame.pack(side='left',expand=YES)
 
     # Search frame's elements
-    Search_button = Button(searchbox_Frame, text='Search')
+    Search_button = Button(searchbox_Frame, text='Search',command=get_search_button)
     Search_box = Entry(searchbox_Frame, bd=3, width=30)
 
 
-    message ="result here"
 
     text_box = Text(result_Frame,height=12)
-    text_box.insert('end', message)
-    text_box.config(state='disabled')
 
     text_box.pack(side='left',padx=10,pady=10)
     Search_box.pack(side='left')
@@ -144,16 +160,20 @@ if __name__ == '__main__':
     surname_label = Label(name_Frame,text="Surname : ")
     surname_box = Entry(name_Frame,bd=3,width=30)
     roomType_label = Label(room_Frame,text='Room Type : ')
-    roomType_box = Entry(room_Frame, bd=3, width=30)
+    roomType_box = Entry(room_Frame, bd=3, width=20)
+    roomId_label = Label(room_Frame,text="Room ID : ")
+    roomId_box = Entry(room_Frame,bd=3,width=20)
     date_label1 = Label(date_Frame,text='From ')
     date_label2 = Label(date_Frame,text='   -   ')
     date_box1 = Entry(date_Frame,bd=3,width=30)
     date_box2 = Entry(date_Frame,bd=3,width=30)
-    Book_button = Button(date_Frame, text='Book')
+    Book_button = Button(date_Frame, text='Book',command=get_book)
 
 
-    roomType_label.pack(side='left')
+    roomType_label.pack(side='left',padx=10)
     roomType_box.pack(side='left')
+    roomId_label.pack(side='left',padx=10)
+    roomId_box.pack(side='left')
     name_label.pack(side='left')
     name_box.pack(side='left',padx=10)
     surname_label.pack(side='left')
@@ -167,3 +187,5 @@ if __name__ == '__main__':
 
 
     root.mainloop()
+
+
