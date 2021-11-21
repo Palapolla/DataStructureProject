@@ -1,9 +1,10 @@
-from package import Stack
 from package import Queue
+from package import Stack
+from package import Calendar
 from tkinter import *
 from tkinter import ttk
 import json
-import calendar
+import datetime
 
 # Pay respect to the Buddha before coding
 #                            _
@@ -104,6 +105,11 @@ def get_roomID_dropdown(choice):
     # ################################## #
     
 if __name__ == '__main__':
+
+    calendar = Calendar()
+    calend = calendar.six_month_calendar()
+
+
     # example use of read_Json()
     data = read_Json('Data.json')
     room_type = list(data.keys())
@@ -134,9 +140,13 @@ if __name__ == '__main__':
 
     table_scrollbary.config(command=table.yview)
     table_scrollbarx.config(command=table.xview)
+    
+    # add date to table
+    table['columns'] = ('Room Type', 'Room ID')
+    column = list(table['columns'])
+    column = column + calend
+    table['columns'] = tuple(column)
 
-    table['columns'] = ('Room Type', 'Room ID','Name', 'Date00', 'Date01', 'Date02', 'Date03', 'Date04', 'Date05', 'Date06',
-                        'Date07', 'Date08', 'Date09', 'Date10')
 
     # define column
     table.column("#0", width=0,  stretch=True)
@@ -256,5 +266,6 @@ if __name__ == '__main__':
     # ░░░░▐▌▀▄░░░░░░░░░░░░░░░░░▐▌░░
     # ░░░░░█░░▀░░░░░░░░░░░░░░░░▀░░░
     # ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+
 
 

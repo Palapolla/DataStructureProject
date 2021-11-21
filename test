@@ -1,0 +1,47 @@
+{
+    "Type A":{
+        "001":{
+            "Q1":{
+                "Name":"xxxx",
+                "Surname":"xxxx",
+                "Date_in":"xxxx",
+                "Date_out":"xxxx"
+            },
+            "Q2":{
+                "Name":"xxxx",
+                "Surname":"xxxx",
+                "Date_in":"xxxx",
+                "Date_out":"xxxx"
+            },
+            .
+            .
+            .
+        },
+        "002":{
+            "Q1":{
+                "Name":"xxxx",
+                "Surname":"xxxx",
+                "Date_in":"xxxx",
+                "Date_out":"xxxx"
+            },
+            "Q2":{
+                "Name":"xxxx",
+                "Surname":"xxxx",
+                "Date_in":"xxxx",
+                "Date_out":"xxxx"
+            },
+            .
+            .
+            .
+        },
+        
+    },
+    "TypeB":{
+        .
+        .
+        .
+    }
+    .
+    .
+    .
+}
