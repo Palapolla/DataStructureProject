@@ -106,6 +106,12 @@ def get_roomID_dropdown(choice):
     
 if __name__ == '__main__':
 
+# problems
+#   * Datas table very laggy // low performance
+#       Hypothesis : "CPU Thread"
+#       Solution :  import threading to config the cpu thread
+#                   or 1 page per 1 month
+
     calendar = Calendar()
     calend = calendar.six_month_calendar()
 
@@ -120,9 +126,9 @@ if __name__ == '__main__':
     root.title('Book MEEE')
     root.geometry("1024x768")
 
-    ###################
+    ###########################
     ### --- Table Frame --- ###
-    ###################
+    ###########################
     table_Frame = LabelFrame(root, text="Data")
     table_Frame.pack(fill='both')
 
@@ -140,7 +146,7 @@ if __name__ == '__main__':
 
     table_scrollbary.config(command=table.yview)
     table_scrollbarx.config(command=table.xview)
-    
+
     # add date to table
     table['columns'] = ('Room Type', 'Room ID')
     column = list(table['columns'])
