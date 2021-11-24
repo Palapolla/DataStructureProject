@@ -1,6 +1,7 @@
 from package import Queue
 from package import Stack
 from package import Calendar
+from package import DoublyLinkedList
 from tkinter import *
 from tkinter import ttk
 import json
@@ -85,6 +86,49 @@ def get_book():
     print(inp_data)
     data = read_Json('Data.json')
 
+def next_page(): 
+    global table,table_page,max_tab_page,column,static_col,page_label
+    if table_page+1 < max_tab_page:
+        print('Next page clicked')
+        table_page += 1
+        print('table_page',table_page)
+        print('max',max_tab_page)
+        table['columns'] = tuple(static_col+column[table_page])
+        # define column
+        table.column("#0", width=0,  stretch=True)
+        for col in table['columns']:
+            table.column(col, anchor=CENTER, width=80)
+        # create heading
+        table.heading("#0", text="", anchor=CENTER)
+        for col in table['columns']:
+            table.heading(col, text=col, anchor=CENTER)
+        # insert by table.insert(parent='',index='',iid=,text='', values=())
+    page_label.config(text='{}/{}'.format(table_page+1,max_tab_page))
+    page_label.pack()
+    table.pack()
+
+def prev_page():
+    global table,table_page,max_tab_page,column,static_col,page_label
+    if table_page-1 >= 0:
+        print('Previous page clicked')
+        table_page -= 1
+        print('table_page',table_page)
+        print('max',max_tab_page)
+        table['columns'] = tuple(static_col+column[table_page])
+        # define column
+        table.column("#0", width=0,  stretch=True)
+        for col in table['columns']:
+            table.column(col, anchor=CENTER, width=80)
+        # create heading
+        table.heading("#0", text="", anchor=CENTER)
+        for col in table['columns']:
+            table.heading(col, text=col, anchor=CENTER)
+        # insert by table.insert(parent='',index='',iid=,text='', values=())
+    page_label.config(text='{}/{}'.format(table_page+1,max_tab_page))
+    page_label.pack()
+    table.pack()
+
+
 def get_roomType_dropdown(choice):
     global room_type_selected,r_type_index,room_ID_selected,room_id,roomId_drop
     choice = room_type_selected.get()
@@ -111,26 +155,44 @@ if __name__ == '__main__':
 #       Hypothesis : "CPU Thread"
 #       Solution :  import threading to config the cpu thread
 #                   or 1 page per 1 month
+    Dll_calendar = DoublyLinkedList()
+    # calend = Calendar()
+    # calend.one_month_calendar(1)
+    # print(calend.Calendar)
+    for mon in range(1,13,1):
+        # print(mon)
+        calend = Calendar()
+        Dll_calendar.append(calend.one_month_calendar(mon))
+    print(Dll_calendar)
+    # print(Dll_calendar.get(1).data.Calendar)
 
-    calendar = Calendar()
-    calend = calendar.six_month_calendar()
 
 
     # example use of read_Json()
     data = read_Json('Data.json')
     room_type = list(data.keys())
     room_id = [list(data[i].keys()) for i in room_type]
-    print(room_type,room_id)
+    # print(room_type,room_id)
 
     root = Tk()
     root.title('Book MEEE')
     root.geometry("1024x768")
 
+
     ###########################
     ### --- Table Frame --- ###
     ###########################
+    table_page = 0
+    max_tab_page = len(Dll_calendar)
+
     table_Frame = LabelFrame(root, text="Data")
     table_Frame.pack(fill='both')
+    tab_butt_Frame = Frame(table_Frame)
+    
+    page_label = Label(tab_butt_Frame,text='{}/{}'.format(table_page+1,max_tab_page))
+    next_button = Button(tab_butt_Frame, text='>',command=next_page)
+    prev_button = Button(tab_butt_Frame, text='<',command=prev_page)
+
 
     # scrollbar
     # x
@@ -149,9 +211,13 @@ if __name__ == '__main__':
 
     # add date to table
     table['columns'] = ('Room Type', 'Room ID')
-    column = list(table['columns'])
-    column = column + calend
-    table['columns'] = tuple(column)
+    static_col = list(table['columns'])
+    column = []
+    for ele in range(len(Dll_calendar)):
+        column.append(Dll_calendar.get(ele).data.Calendar)
+    # column = column + calend
+    print('len(col)',len(column))
+    table['columns'] = tuple(static_col+column[table_page])
 
 
     # define column
@@ -165,6 +231,10 @@ if __name__ == '__main__':
     # insert by table.insert(parent='',index='',iid=,text='', values=())
 
     table.pack()
+    tab_butt_Frame.pack(anchor='se')
+    next_button.pack(side='right')
+    page_label.pack(side='right')
+    prev_button.pack(side='right')
 
     # insert datas to table
     insert = 0
