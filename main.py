@@ -30,6 +30,8 @@ import datetime
 #   bug = 0
 
 # ref. https://stackabuse.com/insertion-sort-in-python/
+
+
 def insertion_sort(array):
     # We start from 1 since the first element is trivially sorted
     for index in range(1, len(array)):
@@ -49,14 +51,14 @@ def insertion_sort(array):
         # Either way - we insert the element at currentPosition
         array[currentPosition] = currentValue
 
-
-
     #  "Room Type":{
     #     "Room Number":{
     #         "Name":"A",
     #         "Time":"B",
     #         "total_cost":"C"
     #     },
+
+
 def read_Json(filename):
     with open(filename) as file:
         data = json.load(file)
@@ -64,37 +66,39 @@ def read_Json(filename):
     return data
     # return data as dict in dict in dict in ...
 
+
 def get_search_button():
-    global Search_box,text_box
+    global Search_box, text_box
     message = Search_box.get()
-    print(message,type(message))
-    text_box.delete(1.0,"end")
+    print(message, type(message))
+    text_box.delete(1.0, "end")
     text_box.insert(1.0, message)
 
+
 def get_book():
-    global name_box,surname_box,room_type_selected,room_ID_selected,date_box1,date_box2,room_type,room_id
-    dat = [room_type_selected.get(),room_ID_selected.get()
-            ,name_box.get(),surname_box.get()
-            ,date_box1.get(),date_box2.get()]
-    key = ['Room_Type','Room_ID','Name','Surname','date_1','date_2']
+    global name_box, surname_box, room_type_selected, room_ID_selected, date_box1, date_box2, room_type, room_id
+    dat = [room_type_selected.get(), room_ID_selected.get(), name_box.get(),
+           surname_box.get(), date_box1.get(), date_box2.get()]
+    key = ['Room_Type', 'Room_ID', 'Name', 'Surname', 'date_1', 'date_2']
 
     inp_data = {}
 
     for ele in range(len(key)):
-        inp_data.update({key[ele] : dat[ele]})
+        inp_data.update({key[ele]: dat[ele]})
     print(inp_data)
     data = read_Json('Data.json')
 
+
 def get_roomType_dropdown(choice):
-    global room_type_selected,r_type_index,room_ID_selected,room_id,roomId_drop
+    global room_type_selected, r_type_index, room_ID_selected, room_id, roomId_drop
     choice = room_type_selected.get()
-    print('Room_type',choice)
+    print('Room_type', choice)
+
 
 def get_roomID_dropdown(choice):
     global room_ID_selected
     choice = room_ID_selected.get()
-    print('Room_ID',choice)
-
+    print('Room_ID', choice)
 
     # ################################## #
     # ---------------------------------- #
@@ -103,24 +107,24 @@ def get_roomID_dropdown(choice):
     # ---------------------------------- #
     # ---------------------------------- #
     # ################################## #
-    
+
+
 if __name__ == '__main__':
 
-# problems
-#   * Datas table very laggy // low performance
-#       Hypothesis : "CPU Thread"
-#       Solution :  import threading to config the cpu thread
-#                   or 1 page per 1 month
+    # problems
+    #   * Datas table very laggy // low performance
+    #       Hypothesis : "CPU Thread"
+    #       Solution :  import threading to config the cpu thread
+    #                   or 1 page per 1 month
 
     calendar = Calendar()
     calend = calendar.six_month_calendar()
-
 
     # example use of read_Json()
     data = read_Json('Data.json')
     room_type = list(data.keys())
     room_id = [list(data[i].keys()) for i in room_type]
-    print(room_type,room_id)
+    print(room_type, room_id)
 
     root = Tk()
     root.title('Book MEEE')
@@ -153,7 +157,6 @@ if __name__ == '__main__':
     column = column + calend
     table['columns'] = tuple(column)
 
-
     # define column
     table.column("#0", width=0,  stretch=True)
     for col in table['columns']:
@@ -179,79 +182,76 @@ if __name__ == '__main__':
         #####################
     ### --- search Frame --- ###
         ####################
-    search_Frame = LabelFrame(root, text="search",padx=100)
+    search_Frame = LabelFrame(root, text="search", padx=100)
     searchbox_Frame = Frame(search_Frame)
     result_Frame = Frame(search_Frame)
-    search_Frame.pack(fill='both',expand=NO)
-    searchbox_Frame.pack(side='right',expand=YES)
-    result_Frame.pack(side='left',expand=YES)
+    search_Frame.pack(fill='both', expand=NO)
+    searchbox_Frame.pack(side='right', expand=YES)
+    result_Frame.pack(side='left', expand=YES)
 
     # Search frame's elements
-    Search_button = Button(searchbox_Frame, text='Search',command=get_search_button)
+    Search_button = Button(searchbox_Frame, text='Search',
+                           command=get_search_button)
     Search_box = Entry(searchbox_Frame, bd=3, width=30)
 
+    text_box = Text(result_Frame, height=12)
 
-
-    text_box = Text(result_Frame,height=12)
-
-    text_box.pack(side='left',padx=10,pady=10)
+    text_box.pack(side='left', padx=10, pady=10)
     Search_box.pack(side='left')
-    Search_button.pack(side='left',padx=10)
+    Search_button.pack(side='left', padx=10)
 
-        #####################
+    #####################
     ### ---- Book Frame ---- ###
-        ####################
-    book_Frame = LabelFrame(root, text="book",padx=100,pady=50)
+    ####################
+    book_Frame = LabelFrame(root, text="book", padx=100, pady=50)
     book_Frame.pack(fill="both", expand='yes')
     name_Frame = Frame(book_Frame)
-    name_Frame.pack(fill=BOTH,pady=10)
+    name_Frame.pack(fill=BOTH, pady=10)
     room_Frame = Frame(book_Frame)
-    room_Frame.pack(fill=BOTH,pady=10)
+    room_Frame.pack(fill=BOTH, pady=10)
     date_Frame = Frame(book_Frame)
-    date_Frame.pack(fill=BOTH,pady=10)
+    date_Frame.pack(fill=BOTH, pady=10)
 
-    name_label = Label(name_Frame,text='Name : ')
+    name_label = Label(name_Frame, text='Name : ')
     name_box = Entry(name_Frame, bd=3, width=30)
 
-    surname_label = Label(name_Frame,text="Surname : ")
-    surname_box = Entry(name_Frame,bd=3,width=30)
+    surname_label = Label(name_Frame, text="Surname : ")
+    surname_box = Entry(name_Frame, bd=3, width=30)
 
-    roomType_label = Label(room_Frame,text='Room Type : ')
+    roomType_label = Label(room_Frame, text='Room Type : ')
     room_type_selected = StringVar()
     room_type_selected.set(room_type[0])
-    roomType_drop = OptionMenu(room_Frame,room_type_selected,*room_type,command=get_roomType_dropdown)
+    roomType_drop = OptionMenu(
+        room_Frame, room_type_selected, *room_type, command=get_roomType_dropdown)
 
-    roomId_label = Label(room_Frame,text="Room ID : ")
+    roomId_label = Label(room_Frame, text="Room ID : ")
     room_ID_selected = StringVar()
     room_ID_selected.set(room_id[0][0])
-    roomId_drop = OptionMenu(room_Frame,room_ID_selected,*room_id[0],command=get_roomID_dropdown)
+    roomId_drop = OptionMenu(room_Frame, room_ID_selected,
+                             *room_id[0], command=get_roomID_dropdown)
 
-    date_label1 = Label(date_Frame,text='Date : ')
-    date_label2 = Label(date_Frame,text='   -   ')
-    date_box1 = Entry(date_Frame,bd=3,width=30)
-    date_box2 = Entry(date_Frame,bd=3,width=30)
+    date_label1 = Label(date_Frame, text='Date : ')
+    date_label2 = Label(date_Frame, text='   -   ')
+    date_box1 = Entry(date_Frame, bd=3, width=30)
+    date_box2 = Entry(date_Frame, bd=3, width=30)
 
-    Book_button = Button(date_Frame, text='Book',command=get_book)
-
+    Book_button = Button(date_Frame, text='Book', command=get_book)
 
     roomType_label.pack(side='left')
     roomType_drop.pack(side='left')
     roomId_label.pack(side='left')
     roomId_drop.pack(side='left')
     name_label.pack(side='left')
-    name_box.pack(side='left',padx=10)
+    name_box.pack(side='left', padx=10)
     surname_label.pack(side='left')
-    surname_box.pack(side='left',padx=10)
+    surname_box.pack(side='left', padx=10)
     date_label1.pack(side='left')
     date_box1.pack(side='left')
     date_label2.pack(side='left')
     date_box2.pack(side='left')
-    Book_button.pack(side='left',padx=10)
-
-
+    Book_button.pack(side='left', padx=10)
 
     root.mainloop()
-
 
     # ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
     # ░░░░░░░░░░░░░▄▄▄▄▄▄▄░░░░░░░░░
@@ -272,6 +272,3 @@ if __name__ == '__main__':
     # ░░░░▐▌▀▄░░░░░░░░░░░░░░░░░▐▌░░
     # ░░░░░█░░▀░░░░░░░░░░░░░░░░▀░░░
     # ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-
-
-
