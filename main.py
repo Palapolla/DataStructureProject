@@ -1,274 +1,246 @@
-from package import Queue
-from package import Stack
-from package import Calendar
 from tkinter import *
-from tkinter import ttk
-import json
 import datetime
 
-# Pay respect to the Buddha before coding
-#                            _
-#                         _ooOoo_
-#                        o8888888o
-#                        88" . "88
-#                        (| -_- |)
-#                        O\  =  /O
-#                     ____/`---'\____
-#                   .'  \\|     |//  `.
-#                  /  \\|||  :  |||//  \
-#                 /  _||||| -:- |||||_  \
-#                 |   | \\\  -  /'| |   |
-#                 | \_|  `\`---'//  |_/ |
-#                 \  .-\__ `-. -'__/-.  /
-#               ___`. .'  /--.--\  `. .'___
-#            ."" '<  `.___\_<|>_/___.' _> \"".
-#           | | :  `- \`. ;`. _/; .'/ /  .' ; |
-#           \  \ `-.   \_\_`. _.'_/_/  -' _.' /
-# ===========`-.`___`-.__\ \___  /__.-'_.'_.-'================
-#                         `=--=-'                    hjw
-# if satu 99:
-#   bug = 0
 
-# ref. https://stackabuse.com/insertion-sort-in-python/
+def show_frame(frame):
+    frame.tkraise()
+        
 
 
-def insertion_sort(array):
-    # We start from 1 since the first element is trivially sorted
-    for index in range(1, len(array)):
-        currentValue = array[index]
-        currentPosition = index
-
-        # As long as we haven't reached the beginning and there is an element
-        # in our sorted array larger than the one we're trying to insert - move
-        # that element to the right
-        while currentPosition > 0 and array[currentPosition - 1] > currentValue:
-            array[currentPosition] = array[currentPosition - 1]
-            currentPosition = currentPosition - 1
-
-        # We have either reached the beginning of the array or we have found
-        # an element of the sorted array that is smaller than the element
-        # we're trying to insert at index currentPosition - 1.
-        # Either way - we insert the element at currentPosition
-        array[currentPosition] = currentValue
-
-    #  "Room Type":{
-    #     "Room Number":{
-    #         "Name":"A",
-    #         "Time":"B",
-    #         "total_cost":"C"
-    #     },
+def room_selected_command(event):
+    pass
+    # print(roomSelected.get())
 
 
-def read_Json(filename):
-    with open(filename) as file:
-        data = json.load(file)
-
-    return data
-    # return data as dict in dict in dict in ...
+def updateTime():
+    now = datetime.datetime.now()
+    timeLabel.config(text=now.strftime("%Y-%m-%d %H:%M:%S"))
+    timeLabel.after(1000, updateTime)
 
 
-def get_search_button():
-    global Search_box, text_box
-    message = Search_box.get()
-    print(message, type(message))
-    text_box.delete(1.0, "end")
-    text_box.insert(1.0, message)
-
-
-def get_book():
-    global name_box, surname_box, room_type_selected, room_ID_selected, date_box1, date_box2, room_type, room_id
-    dat = [room_type_selected.get(), room_ID_selected.get(), name_box.get(),
-           surname_box.get(), date_box1.get(), date_box2.get()]
-    key = ['Room_Type', 'Room_ID', 'Name', 'Surname', 'date_1', 'date_2']
-
-    inp_data = {}
-
-    for ele in range(len(key)):
-        inp_data.update({key[ele]: dat[ele]})
-    print(inp_data)
-    data = read_Json('Data.json')
-
-
-def get_roomType_dropdown(choice):
-    global room_type_selected, r_type_index, room_ID_selected, room_id, roomId_drop
-    choice = room_type_selected.get()
-    print('Room_type', choice)
-
-
-def get_roomID_dropdown(choice):
-    global room_ID_selected
-    choice = room_ID_selected.get()
-    print('Room_ID', choice)
-
-    # ################################## #
-    # ---------------------------------- #
-    # ---------------------------------- #
-    # ---------- main is here ---------- #
-    # ---------------------------------- #
-    # ---------------------------------- #
-    # ################################## #
-
-
-if __name__ == '__main__':
-
-    # problems
-    #   * Datas table very laggy // low performance
-    #       Hypothesis : "CPU Thread"
-    #       Solution :  import threading to config the cpu thread
-    #                   or 1 page per 1 month
-
-    calendar = Calendar()
-    calend = calendar.six_month_calendar()
-
-    # example use of read_Json()
-    data = read_Json('Data.json')
-    room_type = list(data.keys())
-    room_id = [list(data[i].keys()) for i in room_type]
-    print(room_type, room_id)
+if __name__=='__main__':
 
     root = Tk()
-    root.title('Book MEEE')
-    root.geometry("1024x768")
 
-    ###########################
-    ### --- Table Frame --- ###
-    ###########################
-    table_Frame = LabelFrame(root, text="Data")
-    table_Frame.pack(fill='both')
+    root.rowconfigure(0, weight=1)
+    root.columnconfigure(0, weight=1)
 
-    # scrollbar
-    # x
-    table_scrollbarx = Scrollbar(table_Frame, orient='horizontal')
+    width_of_window = 1280
+    height_of_window = 720
+    root.geometry("%dx%d+%d+%d" % (width_of_window, height_of_window,
+                ((root.winfo_screenwidth()/2)-(width_of_window/2)), ((root.winfo_screenheight()/2)-(height_of_window/2))))
+    root.title("HOTEL MANAGEMENT")
+    root.resizable(width=False, height=False)
+
+    menu_Frame = Frame(root)
+    checkin_Frame = Frame(root)
+    guestList_Frame = Frame(root)
+    checkout_Frame = Frame(root)
+    menu_Frame.grid(row=0, column=1, sticky='ne')
+    checkin_Frame.grid(row=0, column=0, sticky='nsew')
+    guestList_Frame.grid(row=0, column=0, sticky='nsew')
+    checkout_Frame.grid(row=0, column=0, sticky='nsew')
+
+    # ======================= Menu Frame code =================
+    # welcome_message = Label(menu_Frame,
+    #                         text="WELCOME",
+    #                         width=600,
+    #                         font="Times 56",
+    #                         pady=40).pack(padx=10, pady=10)
+
+    checkinBtn = Button(menu_Frame,
+                        text="▶CHECK IN",
+                        font="Times 15",
+                        width=20,
+                        background='#8BEEFF',
+                        activebackground='#2AD6EC',
+                        relief='flat',
+                        command=lambda: show_frame(checkin_Frame)
+                        ).pack()
+
+    showGuestBtn = Button(menu_Frame,
+                        text="👥GUEST LIST",
+                        font="Times 15",
+                        width=20,
+                        background='#8BEEFF',
+                        activebackground='#2AD6EC',
+                        relief='flat',
+                        command=lambda: show_frame(guestList_Frame)
+                        ).pack()
+
+    checkOutBtn = Button(menu_Frame,
+                        text="◀CHECK OUT",
+                        font="Times 15",
+                        width=20,
+                        background='#8BEEFF',
+                        activebackground='#2AD6EC',
+                        relief='flat',
+                        command=lambda: show_frame(checkout_Frame)
+                        ).pack()
+
+    exitBtn = Button(menu_Frame,
+                    text="EXIT",
+                    font="Times 15",
+                    width=20,
+                    background='#8BEEFF',
+                    activebackground='#2AD6EC',
+                    relief='flat',
+                    command=quit
+                    ).pack()
+    now = datetime.datetime.now()
+    timeLabel = Label(root,
+                    text=now.strftime("%Y-%m-%d %H:%M:%S"),
+                    font="ariel 10",
+                    pady=20,
+                    width=20,
+                    border=5,)
+    timeLabel.place(x=1100, y=650)
+    timeLabel.after(1000, updateTime)
+
+    # ======================= 1.Check in Frame Code ================
+    checkinLabel = Label(checkin_Frame,
+                        text="CHECK IN",
+                        font="Times 20",
+                        pady=20,
+                        width=20,
+                        border=5
+                        ).pack(padx=10, pady=10)
+
+    nameLabel = Label(checkin_Frame,
+                    text="Enter name :",
+                    font="Times 20",
+                    width=20,
+                    border=5
+                    ).place(x=20, y=100)
+
+    nameEntry = Entry(checkin_Frame,
+                    font="Times 20",
+                    width=40,
+                    border=5
+                    ).place(x=400, y=100)
+
+    roomLabel = Label(checkin_Frame,
+                    text="Enter room type :",
+                    font="Times 20",
+                    width=20,
+                    border=5
+                    ).place(x=20, y=200)
+
+    roomType = ["Normal", "Deluxe", "Floor"]
+    roomSelected = StringVar()
+    roomSelected.set(roomType[0])
+    roomOptions = OptionMenu(checkin_Frame, roomSelected,
+                            *roomType, command=room_selected_command)
+    roomOptions.place(x=340, y=200)
+    roomOptions.config(font="Times 18")
+
+    amountDayLabel = Label(checkin_Frame,
+                        text="How long ? (days) :",
+                        font="Times 20",
+                        width=20,
+                        border=5
+                        ).place(x=500, y=200)
+
+    days = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+    daySelected = IntVar()
+    daySelected.set(days[0])
+    dayOption = OptionMenu(checkin_Frame, daySelected,
+                        *days, command=room_selected_command)
+    dayOption.place(x=800, y=200)
+    dayOption.config(font="Times 18")
+
+    dateLabel = Label(checkin_Frame,
+                    text="Enter date (yy-dd-mm):",
+                    font="Times 20",
+                    width=20,
+                    border=5
+                    ).place(x=20, y=300)
+
+    dateEntry = Entry(checkin_Frame,
+                    font="Times 20",
+                    width=30,
+                    border=5
+                    ).place(x=400, y=300)
+
+    phoneLabel = Label(checkin_Frame,
+                    text="Enter phone number:",
+                    font="Times 20",
+                    width=20,
+                    border=5
+                    ).place(x=20, y=400)
+
+    phoneEntry = Entry(checkin_Frame,
+                    font="Times 20",
+                    width=30,
+                    border=5
+                    ).place(x=400, y=400)
+
+    checkin_submit_btn = Button(checkin_Frame,
+                                text="SUBMIT",
+                                font="Times 15",
+                                pady=20,
+                                width=20,
+                                border=5
+                                ).place(x=500, y=500)
+
+    # backBtn = Button(checkin_Frame,
+    #                 text="BACK TO MENU",
+    #                 font="Times 15",
+    #                 pady=20,
+    #                 width=20,
+    #                 border=5,
+    #                 command=lambda: show_frame(menu_Frame)
+    #                 ).place(x=10, y=630)
+
+    # ======================= 2.SHOW GUEST LIST Frame Code ================
+    guestListLabel = Label(guestList_Frame,
+                        text="GUEST LIST",
+                        font="Times 20",
+                        pady=20,
+                        width=20,
+                        border=5
+                        ).pack(side='top')
+
+    table_Frame = LabelFrame(guestList_Frame, 
+                            text="Data"
+                            ).pack(fill='both')
+
+    table_scrollbarx = Scrollbar(guestList_Frame, 
+                                orient='horizontal')
     table_scrollbarx.pack(side=BOTTOM, fill=X)
     # y
-    table_scrollbary = Scrollbar(table_Frame, orient='vertical')
-    table_scrollbary.pack(side=RIGHT, fill=Y)
+    table_scrollbary = Scrollbar(guestList_Frame, 
+                                orient='vertical'
+                                ).pack(side=RIGHT, fill=Y)
 
-    # table datas
-    table = ttk.Treeview(
-        table_Frame, yscrollcommand=table_scrollbary.set, xscrollcommand=table_scrollbarx.set)
+    # backBtn = Button(guestList_Frame,
+    #                 text="BACK TO MENU",
+    #                 font="Times 15",
+    #                 pady=20,
+    #                 width=20,
+    #                 border=5,
+    #                 command=lambda: show_frame(menu_Frame)
+    #                 ).place(x=10, y=630)
 
-    table_scrollbary.config(command=table.yview)
-    table_scrollbarx.config(command=table.xview)
+    # ======================= 3.CHECK OUT Frame Code ================
+    checkoutLabel = Label(checkout_Frame,
+                        text="CHECK OUT",
+                        font="Times 20",
+                        pady=20,
+                        width=20,
+                        border=5
+                        ).pack(padx=10, pady=10)
 
-    # add date to table
-    table['columns'] = ('Room Type', 'Room ID')
-    column = list(table['columns'])
-    column = column + calend
-    table['columns'] = tuple(column)
+    # backBtn = Button(checkout_Frame,
+    #                 text="BACK TO MENU",
+    #                 font="Times 15",
+    #                 pady=20,
+    #                 width=20,
+    #                 border=5,
+    #                 command=lambda: show_frame(menu_Frame)
+    #                 ).place(x=10, y=630)
 
-    # define column
-    table.column("#0", width=0,  stretch=True)
-    for col in table['columns']:
-        table.column(col, anchor=CENTER, width=80)
-    # create heading
-    table.heading("#0", text="", anchor=CENTER)
-    for col in table['columns']:
-        table.heading(col, text=col, anchor=CENTER)
-    # insert by table.insert(parent='',index='',iid=,text='', values=())
 
-    table.pack()
-
-    # insert datas to table
-    insert = 0
-    for r_type in range(len(room_type)):
-        for r_id in range(len(room_id)+1):
-            # print(r_id,len(room_id))
-            # print('insert',room_type[r_type],room_id[r_type][r_id])
-            table.insert(parent="", index=insert, values=(
-                room_type[r_type], room_id[r_type][r_id]))
-            insert += 1
-
-        #####################
-    ### --- search Frame --- ###
-        ####################
-    search_Frame = LabelFrame(root, text="search", padx=100)
-    searchbox_Frame = Frame(search_Frame)
-    result_Frame = Frame(search_Frame)
-    search_Frame.pack(fill='both', expand=NO)
-    searchbox_Frame.pack(side='right', expand=YES)
-    result_Frame.pack(side='left', expand=YES)
-
-    # Search frame's elements
-    Search_button = Button(searchbox_Frame, text='Search',
-                           command=get_search_button)
-    Search_box = Entry(searchbox_Frame, bd=3, width=30)
-
-    text_box = Text(result_Frame, height=12)
-
-    text_box.pack(side='left', padx=10, pady=10)
-    Search_box.pack(side='left')
-    Search_button.pack(side='left', padx=10)
-
-    #####################
-    ### ---- Book Frame ---- ###
-    ####################
-    book_Frame = LabelFrame(root, text="book", padx=100, pady=50)
-    book_Frame.pack(fill="both", expand='yes')
-    name_Frame = Frame(book_Frame)
-    name_Frame.pack(fill=BOTH, pady=10)
-    room_Frame = Frame(book_Frame)
-    room_Frame.pack(fill=BOTH, pady=10)
-    date_Frame = Frame(book_Frame)
-    date_Frame.pack(fill=BOTH, pady=10)
-
-    name_label = Label(name_Frame, text='Name : ')
-    name_box = Entry(name_Frame, bd=3, width=30)
-
-    surname_label = Label(name_Frame, text="Surname : ")
-    surname_box = Entry(name_Frame, bd=3, width=30)
-
-    roomType_label = Label(room_Frame, text='Room Type : ')
-    room_type_selected = StringVar()
-    room_type_selected.set(room_type[0])
-    roomType_drop = OptionMenu(
-        room_Frame, room_type_selected, *room_type, command=get_roomType_dropdown)
-
-    roomId_label = Label(room_Frame, text="Room ID : ")
-    room_ID_selected = StringVar()
-    room_ID_selected.set(room_id[0][0])
-    roomId_drop = OptionMenu(room_Frame, room_ID_selected,
-                             *room_id[0], command=get_roomID_dropdown)
-
-    date_label1 = Label(date_Frame, text='Date : ')
-    date_label2 = Label(date_Frame, text='   -   ')
-    date_box1 = Entry(date_Frame, bd=3, width=30)
-    date_box2 = Entry(date_Frame, bd=3, width=30)
-
-    Book_button = Button(date_Frame, text='Book', command=get_book)
-
-    roomType_label.pack(side='left')
-    roomType_drop.pack(side='left')
-    roomId_label.pack(side='left')
-    roomId_drop.pack(side='left')
-    name_label.pack(side='left')
-    name_box.pack(side='left', padx=10)
-    surname_label.pack(side='left')
-    surname_box.pack(side='left', padx=10)
-    date_label1.pack(side='left')
-    date_box1.pack(side='left')
-    date_label2.pack(side='left')
-    date_box2.pack(side='left')
-    Book_button.pack(side='left', padx=10)
+    show_frame(menu_Frame)
 
     root.mainloop()
-
-    # ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-    # ░░░░░░░░░░░░░▄▄▄▄▄▄▄░░░░░░░░░
-    # ░░░░░░░░░▄▀▀▀░░░░░░░▀▄░░░░░░░
-    # ░░░░░░░▄▀░░░░░░░░░░░░▀▄░░░░░░
-    # ░░░░░░▄▀░░░░░░░░░░▄▀▀▄▀▄░░░░░
-    # ░░░░▄▀░░░░░░░░░░▄▀░░██▄▀▄░░░░
-    # ░░░▄▀░░▄▀▀▀▄░░░░█░░░▀▀░█▀▄░░░
-    # ░░░█░░█▄▄░░░█░░░▀▄░░░░░▐░█░░░
-    # ░░▐▌░░█▀▀░░▄▀░░░░░▀▄▄▄▄▀░░█░░
-    # ░░▐▌░░█░░░▄▀░░░░░░░░░░░░░░█░░
-    # ░░▐▌░░░▀▀▀░░░░░░░░░░░░░░░░▐▌░
-    # ░░▐▌░░░░░░░░░░░░░░░▄░░░░░░▐▌░
-    # ░░▐▌░░░░░░░░░▄░░░░░█░░░░░░▐▌░
-    # ░░░█░░░░░░░░░▀█▄░░▄█░░░░░░▐▌░
-    # ░░░▐▌░░░░░░░░░░▀▀▀▀░░░░░░░▐▌░
-    # ░░░░█░░░░░░░░░░░░░░░░░░░░░█░░
-    # ░░░░▐▌▀▄░░░░░░░░░░░░░░░░░▐▌░░
-    # ░░░░░█░░▀░░░░░░░░░░░░░░░░▀░░░
-    # ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
