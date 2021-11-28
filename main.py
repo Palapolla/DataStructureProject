@@ -28,9 +28,9 @@ import datetime
 #                         `=--=-'                    hjw
 # if satu 99:
 #   bug = 0
-#   เลื่อมใส
 
 # ref. https://stackabuse.com/insertion-sort-in-python/
+# angpao has joined
 def insertion_sort(array):
     # We start from 1 since the first element is trivially sorted
     for index in range(1, len(array)):
