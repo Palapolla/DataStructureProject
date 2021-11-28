@@ -28,6 +28,7 @@ import datetime
 #                         `=--=-'                    hjw
 # if satu 99:
 #   bug = 0
+#   เลื่อมใส
 
 # ref. https://stackabuse.com/insertion-sort-in-python/
 def insertion_sort(array):
