@@ -7,7 +7,89 @@ import json
 def show_frame(frame):
     frame.tkraise()
         
+# ref. https://stackabuse.com/insertion-sort-in-python/
+def insertion_sort(array,key):
+    global data_key
+    key_index=data_key.index(key)
+    # We start from 1 since the first element is trivially sorted
+    for index in range(1, len(array)):
+        currentValue = array[index]
+        currentPosition = index
 
+        # As long as we haven't reached the beginning and there is an element
+        # in our sorted array larger than the one we're trying to insert - move
+        # that element to the right
+        while currentPosition > 0 and array[currentPosition - 1][key_index] > currentValue[key_index]:
+            array[currentPosition] = array[currentPosition - 1]
+            currentPosition = currentPosition - 1
+
+        # We have either reached the beginning of the array or we have found
+        # an element of the sorted array that is smaller than the element
+        # we're trying to insert at index currentPosition - 1.
+        # Either way - we insert the element at currentPosition
+        array[currentPosition] = currentValue
+    return array
+# ref https://www.delftstack.com/howto/python/sort-list-alphabetically/
+def quick_sort(lst,key):
+    global data_key
+    key_index=data_key.index(key)
+    if not lst:
+        return []
+    return (quick_sort([x for x in lst[1:] if x[key_index] <  lst[0][key_index]],key)
+            + [lst[0]] +
+            quick_sort([x for x in lst[1:] if x[key_index] >= lst[0][key_index]],key))
+
+def sort_by_userid():
+    global data_ls,table,root
+    sorted_dat = insertion_sort(data_ls,'user_id')
+    for i in table.get_children():
+            table.delete(i)
+    root.update()
+    row = 0
+    for ele in sorted_dat:
+        table.insert(parent="", 
+                    index=row, 
+                    values=ele)
+        row+=1
+
+def sort_by_name():
+    global data_ls,table,root
+    sorted_dat = quick_sort(data_ls,'name')
+    for i in table.get_children():
+            table.delete(i)
+    root.update()
+    row = 0
+    for ele in sorted_dat:
+        table.insert(parent="", 
+                    index=row, 
+                    values=ele)
+        row+=1
+
+def sort_by_roomNo():
+    global data_ls,table,root
+    sorted_dat = quick_sort(data_ls,'room_number')
+    for i in table.get_children():
+            table.delete(i)
+    root.update()
+    row = 0
+    for ele in sorted_dat:
+        table.insert(parent="", 
+                    index=row, 
+                    values=ele)
+        row+=1
+
+def sort_by_surname():
+    global data_ls,table,root
+    sorted_dat = quick_sort(data_ls,'surname')
+    for i in table.get_children():
+            table.delete(i)
+    root.update()
+    row = 0
+    for ele in sorted_dat:
+        table.insert(parent="", 
+                    index=row, 
+                    values=ele)
+        row+=1
 
 def room_selected_command(event):
     pass
@@ -23,6 +105,7 @@ def read_Json(filename):
     with open(filename) as file:
         data = json.load(file)
     return data
+
 
 if __name__=='__main__':
 
@@ -199,6 +282,24 @@ if __name__=='__main__':
     #                 ).place(x=10, y=630)
 
     # ======================= 2.SHOW GUEST LIST Frame Code ================
+    data = read_Json('Data.json')
+    amount_data = list(data.keys())
+    data_key = ["user_id",
+                "name",
+                "surname",
+                "tel",
+                "room_type",
+                "room_number",
+                "date_in",
+                "date_out"]
+    data_ls = []
+    for dat in amount_data:
+        temp = []
+        for ele in data_key:
+            temp.append(data.get(dat).get(ele))
+        data_ls.append(temp)
+    # data_ls = [data.get(n).get('name') for n in data]
+
     guestListLabel = Label(guestList_Frame,
                         text="GUEST LIST",
                         font="Times 20",
@@ -233,36 +334,29 @@ if __name__=='__main__':
     
     table.heading("#0",text='',anchor=CENTER)
     for col in table['columns']:
-        table.heading(col,text=col,anchor=CENTER)
+        if col == 'User ID':
+            table.heading(col,text=col,anchor=CENTER,command=sort_by_userid)
+        elif col == 'Name':
+            table.heading(col,text=col,anchor=CENTER,command=sort_by_name)
+        elif col == 'Surname':
+            table.heading(col,text=col,anchor=CENTER,command=sort_by_surname)
+        elif col == 'Room No.':
+            table.heading(col,text=col,anchor=CENTER,command=sort_by_roomNo)
+        else:
+            table.heading(col,text=col,anchor=CENTER)
+
 
     table.pack(fill=BOTH,expand=YES)
 
-    data = read_Json('Data.json')
-    print(data)
-    amount_data = list(data.keys())
-    data_key = ["user_id",
-                "name",
-                "surname",
-                "tel",
-                "room_type",
-                "room_number",
-                "date_in",
-                "date_out"]
-    data_ls = []
-    for dat in amount_data:
-        temp = []
-        for ele in data_key:
-            temp.append(data.get(dat).get(ele))
-        data_ls.append(temp)
-    # data_ls = [data.get(n).get('name') for n in data]
-    print(data_ls)
-
+    # sorted_data_ls = insertion_sort(data_ls,'user_id')
+    # print('sorted',sorted_data_ls)
     row = 0
     for ele in data_ls:
         table.insert(parent="", 
                     index=row, 
                     values=ele)
         row+=1
+    
     # backBtn = Button(guestList_Frame,
     #                 text="BACK TO MENU",
     #                 font="Times 15",
