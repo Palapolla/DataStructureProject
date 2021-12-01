@@ -1,5 +1,7 @@
 from tkinter import *
 import datetime
+from tkinter import ttk
+import json
 
 
 def show_frame(frame):
@@ -17,6 +19,10 @@ def updateTime():
     timeLabel.config(text=now.strftime("%Y-%m-%d %H:%M:%S"))
     timeLabel.after(1000, updateTime)
 
+def read_Json(filename):
+    with open(filename) as file:
+        data = json.load(file)
+    return data
 
 if __name__=='__main__':
 
@@ -202,17 +208,61 @@ if __name__=='__main__':
                         ).pack(side='top')
 
     table_Frame = LabelFrame(guestList_Frame, 
-                            text="Data"
-                            ).pack(fill='both')
+                            text="Data")
+    table_Frame.pack(fill=BOTH,expand=YES)
 
-    table_scrollbarx = Scrollbar(guestList_Frame, 
+
+    table_scrollbarx = Scrollbar(table_Frame, 
                                 orient='horizontal')
     table_scrollbarx.pack(side=BOTTOM, fill=X)
     # y
-    table_scrollbary = Scrollbar(guestList_Frame, 
-                                orient='vertical'
-                                ).pack(side=RIGHT, fill=Y)
+    table_scrollbary = Scrollbar(table_Frame, 
+                                orient='vertical')
+    table_scrollbary.pack(side=RIGHT, fill=Y)
 
+    table = ttk.Treeview(table_Frame, 
+                yscrollcommand=table_scrollbary.set, 
+                xscrollcommand=table_scrollbarx.set)
+    
+    table_scrollbary.config(command=table.yview)
+    table_scrollbarx.config(command=table.xview)
+    table['columns'] = ('User ID', 'Name','Surname','tel','Room Type','Room No.','Date in','Date out')
+    table.column("#0",width=0,stretch=True)
+    for col in table['columns']:
+        table.column(col,anchor=CENTER,width=80)
+    
+    table.heading("#0",text='',anchor=CENTER)
+    for col in table['columns']:
+        table.heading(col,text=col,anchor=CENTER)
+
+    table.pack(fill=BOTH,expand=YES)
+
+    data = read_Json('Data.json')
+    print(data)
+    amount_data = list(data.keys())
+    data_key = ["user_id",
+                "name",
+                "surname",
+                "tel",
+                "room_type",
+                "room_number",
+                "date_in",
+                "date_out"]
+    data_ls = []
+    for dat in amount_data:
+        temp = []
+        for ele in data_key:
+            temp.append(data.get(dat).get(ele))
+        data_ls.append(temp)
+    # data_ls = [data.get(n).get('name') for n in data]
+    print(data_ls)
+
+    row = 0
+    for ele in data_ls:
+        table.insert(parent="", 
+                    index=row, 
+                    values=ele)
+        row+=1
     # backBtn = Button(guestList_Frame,
     #                 text="BACK TO MENU",
     #                 font="Times 15",
