@@ -1,5 +1,5 @@
 {
-  "LastID": 4,
+  "LastID": 2,
   "D01": {
     "type": "Deluxe",
     "dateBooking": [],
@@ -11,29 +11,18 @@
       "2021-12-02",
       "2021-12-03",
       "2021-12-04",
-      "2021-12-05",
-      "2021-12-07"
+      "2021-12-05"
     ],
     "bookingData": [
       {
         "Name": "Premz",
-        "Surename": "Ksd",
+        "Surname": "Ksd",
         "tel": "0000000000",
         "roomType": "Deluxe",
         "roomID": "D02",
         "dateIn": "2021-12-02",
         "dateOut": "2021-12-06",
         "id": 1
-      },
-      {
-        "Name": "Premz",
-        "Surename": "Ksd",
-        "tel": "0000000000",
-        "roomType": "Deluxe",
-        "roomID": "D02",
-        "dateIn": "2021-12-07",
-        "dateOut": "2021-12-08",
-        "id": 2
       }
     ]
   },
@@ -44,22 +33,8 @@
   },
   "D04": {
     "type": "Deluxe",
-    "dateBooking": [
-      "2021-12-14",
-      "2021-12-15"
-    ],
-    "bookingData": [
-      {
-        "Name": "Premz",
-        "Surename": "Ksd",
-        "tel": "0000000000",
-        "roomType": "Deluxe",
-        "roomID": "D04",
-        "dateIn": "2021-12-14",
-        "dateOut": "2021-12-16",
-        "id": 3
-      }
-    ]
+    "dateBooking": [],
+    "bookingData": []
   },
   "D05": {
     "type": "Deluxe",
@@ -68,8 +43,23 @@
   },
   "N01": {
     "type": "Normal",
-    "dateBooking": [],
-    "bookingData": []
+    "dateBooking": [
+      "2021-12-03",
+      "2021-12-04",
+      "2021-12-05"
+    ],
+    "bookingData": [
+      {
+        "Name": "polapolapola",
+        "Surname": "polapolapolapola",
+        "tel": "0000000000",
+        "roomType": "Normal",
+        "roomID": "N01",
+        "dateIn": "2021-12-03",
+        "dateOut": "2021-12-06",
+        "id": 2
+      }
+    ]
   },
   "N02": {
     "type": "Normal",
@@ -83,21 +73,8 @@
   },
   "N04": {
     "type": "Normal",
-    "dateBooking": [
-      "2021-12-02"
-    ],
-    "bookingData": [
-      {
-        "Name": "Rw",
-        "Surename": "ss",
-        "tel": "5666666666",
-        "roomType": "Normal",
-        "roomID": "N04",
-        "dateIn": "2021-12-02",
-        "dateOut": "2021-12-03",
-        "id": 4
-      }
-    ]
+    "dateBooking": [],
+    "bookingData": []
   },
   "N05": {
     "type": "Normal",
@@ -121,8 +98,27 @@
   },
   "T04": {
     "type": "Twin",
-    "dateBooking": [],
-    "bookingData": []
+    "dateBooking": [
+      "2021-12-02",
+      "2021-12-03",
+      "2021-12-04",
+      "2021-12-05",
+      "2021-12-06",
+      "2021-12-07",
+      "2021-12-08"
+    ],
+    "bookingData": [
+      {
+        "Name": "warapob",
+        "Surname": "Keatkongsang",
+        "tel": "0000000000",
+        "roomType": "Twin",
+        "roomID": "T04",
+        "dateIn": "2021-12-02",
+        "dateOut": "2021-12-09",
+        "id": 0
+      }
+    ]
   },
   "T05": {
     "type": "Twin",

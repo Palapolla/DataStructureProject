@@ -5,7 +5,7 @@ import datetime
 import checkin
 from tkinter import ttk
 import json
-
+from operator import itemgetter
 
 
 def show_frame(frame):
@@ -45,7 +45,7 @@ def quick_sort(lst,key):
 
 def sort_by_userid():
     global data_ls,table,root
-    sorted_dat = insertion_sort(data_ls,'user_id')
+    sorted_dat = insertion_sort(data_ls,'id')
     for i in table.get_children():
             table.delete(i)
     root.update()
@@ -58,7 +58,7 @@ def sort_by_userid():
 
 def sort_by_name():
     global data_ls,table,root
-    sorted_dat = quick_sort(data_ls,'name')
+    sorted_dat = quick_sort(data_ls,'Name')
     for i in table.get_children():
             table.delete(i)
     root.update()
@@ -71,7 +71,7 @@ def sort_by_name():
 
 def sort_by_roomNo():
     global data_ls,table,root
-    sorted_dat = quick_sort(data_ls,'room_number')
+    sorted_dat = quick_sort(data_ls,'roomID')
     for i in table.get_children():
             table.delete(i)
     root.update()
@@ -84,7 +84,7 @@ def sort_by_roomNo():
 
 def sort_by_surname():
     global data_ls,table,root
-    sorted_dat = quick_sort(data_ls,'surname')
+    sorted_dat = quick_sort(data_ls,'Surname')
     for i in table.get_children():
             table.delete(i)
     root.update()
@@ -95,6 +95,31 @@ def sort_by_surname():
                     values=ele)
         row+=1
 
+def sort_by_datein():
+    global data_ls,table,root,data_key
+    sorted_dat = sorted(data_ls,key=itemgetter(data_key.index('dateIn')))
+    for i in table.get_children():
+            table.delete(i)
+    root.update()
+    row = 0
+    for ele in sorted_dat:
+        table.insert(parent="", 
+                    index=row, 
+                    values=ele)
+        row+=1
+
+def sort_by_dateout():
+    global data_ls,table,root,data_key
+    sorted_dat = sorted(data_ls,key=itemgetter(data_key.index('dateOut')))
+    for i in table.get_children():
+            table.delete(i)
+    root.update()
+    row = 0
+    for ele in sorted_dat:
+        table.insert(parent="", 
+                    index=row, 
+                    values=ele)
+        row+=1
 
 def room_id_selected_command():
 
@@ -113,9 +138,20 @@ def room_id_selected_command():
 
 
 def handleSubmitData():
+    global data_ls
     handleError = checkin.writeData(nameEntry.get(), sureNameEntry.get(), phoneEntry.get(
     ), roomTypeSelected.get(), roomSelectedVariable.get(), dateCheckin.get_date(), dateCheckout.get_date())
-
+    for i in table.get_children():
+            table.delete(i)
+    root.update()
+    row = 0
+    data_ls.clear()
+    data_ls = update_data()
+    for ele in data_ls:
+        table.insert(parent="", 
+                    index=row, 
+                    values=ele)
+        row+=1
     messagebox.showinfo("Status", handleError)
 
 
@@ -138,6 +174,19 @@ def read_Json(filename):
     with open(filename) as file:
         data = json.load(file)
     return data
+
+def update_data():
+    global data, data_ls, data_key
+    data_ls.clear()
+    data = read_Json('Data.json')
+    for room in data:
+        if room != "LastID":
+            temp = []
+            for items in data[room]["bookingData"]:
+                for dat in data_key:
+                    temp.append(items.get(dat))
+                data_ls.append(temp)
+    return data_ls
 
 
 if __name__ == '__main__':
@@ -340,21 +389,17 @@ if __name__ == '__main__':
     # ======================= 2.SHOW GUEST LIST Frame Code ================
     data = read_Json('Data.json')
     amount_data = list(data.keys())
-    data_key = ["user_id",
-                "name",
-                "surname",
+    data_key = ["id",
+                "Name",
+                "Surname",
                 "tel",
-                "room_type",
-                "room_number",
-                "date_in",
-                "date_out"]
+                "roomType",
+                "roomID",
+                "dateIn",
+                "dateOut"]
     data_ls = []
-    for dat in amount_data:
-        temp = []
-        for ele in data_key:
-            temp.append(data.get(dat).get(ele))
-        data_ls.append(temp)
-    # data_ls = [data.get(n).get('name') for n in data]
+    data_ls = update_data()
+
 
     guestListLabel = Label(guestList_Frame,
                         text="GUEST LIST",
@@ -376,7 +421,7 @@ if __name__ == '__main__':
     table_scrollbary = Scrollbar(table_Frame, 
                                 orient='vertical')
     table_scrollbary.pack(side=RIGHT, fill=Y)
-
+    # init table
     table = ttk.Treeview(table_Frame, 
                 yscrollcommand=table_scrollbary.set, 
                 xscrollcommand=table_scrollbarx.set)
@@ -398,30 +443,23 @@ if __name__ == '__main__':
             table.heading(col,text=col,anchor=CENTER,command=sort_by_surname)
         elif col == 'Room No.':
             table.heading(col,text=col,anchor=CENTER,command=sort_by_roomNo)
+        elif col == 'Date in':
+            table.heading(col,text=col,anchor=CENTER,command=sort_by_datein)
+        elif col == 'Date out':
+            table.heading(col,text=col,anchor=CENTER,command=sort_by_dateout)
         else:
             table.heading(col,text=col,anchor=CENTER)
 
 
     table.pack(fill=BOTH,expand=YES)
 
-    # sorted_data_ls = insertion_sort(data_ls,'user_id')
-    # print('sorted',sorted_data_ls)
     row = 0
     for ele in data_ls:
         table.insert(parent="", 
                     index=row, 
                     values=ele)
         row+=1
-    
 
-    # backBtn = Button(guestList_Frame,
-    #                 text="BACK TO MENU",
-    #                 font="Times 15",
-    #                 pady=20,
-    #                 width=20,
-    #                 border=5,
-    #                 command=lambda: show_frame(menu_Frame)
-    #                 ).place(x=10, y=630)
 
     # ======================= 3.CHECK OUT Frame Code ================
     checkoutLabel = Label(checkout_Frame,

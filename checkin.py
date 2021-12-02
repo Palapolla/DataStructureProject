@@ -50,7 +50,7 @@ def writeData(name, surname, tel, roomType, roomID, dateIn, dateOut):
     if name == "":
         return "please Enter Name"
     if surname == "":
-        return "please Enter Surename"
+        return "please Enter Surname"
     if len(tel) != 10:
         return "Phone number must have 10 digits"
     if roomID == "\"Not selected\"":
@@ -61,7 +61,7 @@ def writeData(name, surname, tel, roomType, roomID, dateIn, dateOut):
     # prepare data
     dic = {
         "Name": name,
-        "Surename": surname,
+        "Surname": surname,
         "tel": tel,
         "roomType": roomType,
         "roomID": roomID,
