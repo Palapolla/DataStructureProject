@@ -1,111 +1,115 @@
 {
-    "Type A":{
-        "001":{
-            "Name":"A",
-            "Time":"B",
-            "total_cost":"C"
-        },
-        "002":{
-            "Name":"A",
-            "Time":"B",
-            "total_cost":"C"
-        },
-        "003":{
-            "Name":"A",
-            "Time":"B",
-            "total_cost":"C"
-        },
-        "004":{
-            "Name":"A",
-            "Time":"B",
-            "total_cost":"C"
-        },
-        "005":{
-            "Name":"A",
-            "Time":"B",
-            "total_cost":"C"
-        }
-    },
-    "Type B":{
-        "001":{
-            "Name":"A",
-            "Time":"B",
-            "total_cost":"C"
-        },
-        "002":{
-            "Name":"A",
-            "Time":"B",
-            "total_cost":"C"
-        },
-        "003":{
-            "Name":"A",
-            "Time":"B",
-            "total_cost":"C"
-        },
-        "004":{
-            "Name":"A",
-            "Time":"B",
-            "total_cost":"C"
-        },
-        "005":{
-            "Name":"A",
-            "Time":"B",
-            "total_cost":"C"
-        }
-    },
-    "Type C":{
-        "001":{
-            "Name":"A",
-            "Time":"B",
-            "total_cost":"C"
-        },
-        "002":{
-            "Name":"A",
-            "Time":"B",
-            "total_cost":"C"
-        },
-        "003":{
-            "Name":"A",
-            "Time":"B",
-            "total_cost":"C"
-        },
-        "004":{
-            "Name":"A",
-            "Time":"B",
-            "total_cost":"C"
-        },
-        "005":{
-            "Name":"A",
-            "Time":"B",
-            "total_cost":"C"
-        }
-    },
-    "Type D":{
-        "001":{
-            "Name":"A",
-            "Time":"B",
-            "total_cost":"C"
-        },
-        "002":{
-            "Name":"A",
-            "Time":"B",
-            "total_cost":"C"
-        },
-        "003":{
-            "Name":"A",
-            "Time":"B",
-            "total_cost":"C"
-        },
-        "004":{
-            "Name":"A",
-            "Time":"B",
-            "total_cost":"C"
-        },
-        "005":{
-            "Name":"A",
-            "Time":"B",
-            "total_cost":"C"
-        }
-    }
-
+  "D01": {
+    "type": "Deluxe",
+    "dateBooking": [],
+    "bookingData": []
+  },
+  "D02": {
+    "type": "Deluxe",
+    "dateBooking": [
+      "2021-12-02",
+      "2021-12-03",
+      "2021-12-04",
+      "2021-12-05",
+      "2021-12-07"
+    ],
+    "bookingData": [
+      {
+        "Name": "Premz",
+        "Surename": "Ksd",
+        "tel": "0000000000",
+        "roomType": "Deluxe",
+        "roomID": "D02",
+        "dateIn": "2021-12-02",
+        "dateOut": "2021-12-06"
+      },
+      {
+        "Name": "Premz",
+        "Surename": "Ksd",
+        "tel": "0000000000",
+        "roomType": "Deluxe",
+        "roomID": "D02",
+        "dateIn": "2021-12-07",
+        "dateOut": "2021-12-08"
+      }
+    ]
+  },
+  "D03": {
+    "type": "Deluxe",
+    "dateBooking": [],
+    "bookingData": []
+  },
+  "D04": {
+    "type": "Deluxe",
+    "dateBooking": [
+      "2021-12-14",
+      "2021-12-15"
+    ],
+    "bookingData": [
+      {
+        "Name": "Premz",
+        "Surename": "Ksd",
+        "tel": "0000000000",
+        "roomType": "Deluxe",
+        "roomID": "D04",
+        "dateIn": "2021-12-14",
+        "dateOut": "2021-12-16"
+      }
+    ]
+  },
+  "D05": {
+    "type": "Deluxe",
+    "dateBooking": [],
+    "bookingData": []
+  },
+  "N01": {
+    "type": "Normal",
+    "dateBooking": [],
+    "bookingData": []
+  },
+  "N02": {
+    "type": "Normal",
+    "dateBooking": [],
+    "bookingData": []
+  },
+  "N03": {
+    "type": "Normal",
+    "dateBooking": [],
+    "bookingData": []
+  },
+  "N04": {
+    "type": "Normal",
+    "dateBooking": [],
+    "bookingData": []
+  },
+  "N05": {
+    "type": "Normal",
+    "dateBooking": [],
+    "bookingData": []
+  },
+  "T01": {
+    "type": "Twin",
+    "dateBooking": [],
+    "bookingData": []
+  },
+  "T02": {
+    "type": "Twin",
+    "dateBooking": [],
+    "bookingData": []
+  },
+  "T03": {
+    "type": "Twin",
+    "dateBooking": [],
+    "bookingData": []
+  },
+  "T04": {
+    "type": "Twin",
+    "dateBooking": [],
+    "bookingData": []
+  },
+  "T05": {
+    "type": "Twin",
+    "dateBooking": [],
+    "bookingData": []
+  }
 }
