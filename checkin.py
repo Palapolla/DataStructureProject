@@ -32,15 +32,16 @@ def findAvailableRoom(roomType, checkInDate, checkOutDate):
         data = json.load(f)
 
     for room in data:
-        if data[room]["type"] == roomType:
-            datalst = data[room]["dateBooking"]
-            temp = dataOffset
-            # change this
-            for x in dataOffset:
-                if x in datalst:
-                    dataOffset.remove(x)
-            if dataOffset == temp:
-                avarilableroom.append(room)
+        if room != "LastID":
+            if data[room]["type"] == roomType:
+                datalst = data[room]["dateBooking"]
+                temp = dataOffset
+                # change this
+                for x in dataOffset:
+                    if x in datalst:
+                        dataOffset.remove(x)
+                if dataOffset == temp:
+                    avarilableroom.append(room)
     return handleError, avarilableroom
 
 
@@ -84,6 +85,9 @@ def writeData(name, surname, tel, roomType, roomID, dateIn, dateOut):
         if date in temp:
             return "This room has been booked in this date\nplease select new date"
 
+    data["LastID"] += 1
+    lastID = data["LastID"]
+    dic["id"] = lastID
     data[roomID]["bookingData"].append(dic)
     for i in writeDateData:
         data[roomID]["dateBooking"].append(i)

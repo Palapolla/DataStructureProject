@@ -1,4 +1,5 @@
 {
+  "LastID": 4,
   "D01": {
     "type": "Deluxe",
     "dateBooking": [],
@@ -21,7 +22,8 @@
         "roomType": "Deluxe",
         "roomID": "D02",
         "dateIn": "2021-12-02",
-        "dateOut": "2021-12-06"
+        "dateOut": "2021-12-06",
+        "id": 1
       },
       {
         "Name": "Premz",
@@ -30,7 +32,8 @@
         "roomType": "Deluxe",
         "roomID": "D02",
         "dateIn": "2021-12-07",
-        "dateOut": "2021-12-08"
+        "dateOut": "2021-12-08",
+        "id": 2
       }
     ]
   },
@@ -53,7 +56,8 @@
         "roomType": "Deluxe",
         "roomID": "D04",
         "dateIn": "2021-12-14",
-        "dateOut": "2021-12-16"
+        "dateOut": "2021-12-16",
+        "id": 3
       }
     ]
   },
@@ -79,8 +83,21 @@
   },
   "N04": {
     "type": "Normal",
-    "dateBooking": [],
-    "bookingData": []
+    "dateBooking": [
+      "2021-12-02"
+    ],
+    "bookingData": [
+      {
+        "Name": "Rw",
+        "Surename": "ss",
+        "tel": "5666666666",
+        "roomType": "Normal",
+        "roomID": "N04",
+        "dateIn": "2021-12-02",
+        "dateOut": "2021-12-03",
+        "id": 4
+      }
+    ]
   },
   "N05": {
     "type": "Normal",
