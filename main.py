@@ -505,25 +505,27 @@ if __name__ == '__main__':
                       width=0,
                       border=5
                       ).place(x=50, y=300)
+    
 
     co_roomType = ["Normal", "Deluxe", "Twin"]
     co_roomTypeSelected = StringVar()
-    co_roomTypeSelected.set(co_roomType[0])
     co_roomOptions = OptionMenu(checkout_Frame, roomTypeSelected,
                              *co_roomType)
     co_roomOptions.place(x=340, y=300)
     co_roomOptions.config(font="Times 18")
-
+    
     roomNumberLabel = Label(checkout_Frame,
                       text="Room Number :",
                       font="Times 20",
                       width=0,
                       border=5
                       ).place(x=50, y=400)
-    
+
     roomNumberType = ['N01','N02','N03','N04','N05']
+    
 
     roomNumberTypeSelected = StringVar()
+    
     roomNumberOptions = OptionMenu(checkout_Frame, roomNumberTypeSelected,
                              *roomNumberType)
     roomNumberOptions.place(x=300, y=400)
