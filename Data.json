@@ -1,5 +1,5 @@
 {
-  "LastID": 2,
+  "LastID": 3,
   "D01": {
     "type": "Deluxe",
     "dateBooking": [],
@@ -93,8 +93,24 @@
   },
   "T03": {
     "type": "Twin",
-    "dateBooking": [],
-    "bookingData": []
+    "dateBooking": [
+      "2021-12-15",
+      "2021-12-16",
+      "2021-12-17",
+      "2021-12-18"
+    ],
+    "bookingData": [
+      {
+        "Name": "angpao",
+        "Surname": "surapat",
+        "tel": "xxxxxxxxxx",
+        "roomType": "Twin",
+        "roomID": "T03",
+        "dateIn": "2021-12-15",
+        "dateOut": "2021-12-19",
+        "id": 3
+      }
+    ]
   },
   "T04": {
     "type": "Twin",

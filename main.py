@@ -189,6 +189,7 @@ def update_data():
     return data_ls
 
 
+
 if __name__ == '__main__':
 
     root = Tk()
@@ -292,7 +293,7 @@ if __name__ == '__main__':
     nameEntry.place(x=220, y=100)
 
     sureNameLabel = Label(checkin_Frame,
-                          text="Surename :",
+                          text="Surname :",
                           font="Times 20",
                           width=20,
                           border=5
@@ -469,6 +470,74 @@ if __name__ == '__main__':
                           width=20,
                           border=5
                           ).pack(padx=10, pady=10)
+
+    checkoutNameLabel = Label(checkout_Frame,
+                      text="Enter name :",
+                      font="Times 20",
+                      width=0,
+                      border=5
+                      ).place(x=50, y=200)
+
+    checkoutNameEntry = Entry(checkout_Frame,
+                      font="Times 20",
+                      width=15,
+                      border=5
+                      )
+    checkoutNameEntry.place(x=220, y=200)
+
+    checkoutSurnameLabel = Label(checkout_Frame,
+                      text="Enter surname :",
+                      font="Times 20",
+                      width=0,
+                      border=5
+                      ).place(x=600, y=200)
+
+    checkoutSurnameEntry = Entry(checkout_Frame,
+                      font="Times 20",
+                      width=15,
+                      border=5
+                      )
+    checkoutSurnameEntry.place(x=800, y=200)
+
+    checkoutRoomLabel = Label(checkout_Frame,
+                      text="Enter room type :",
+                      font="Times 20",
+                      width=0,
+                      border=5
+                      ).place(x=50, y=300)
+
+    co_roomType = ["Normal", "Deluxe", "Twin"]
+    co_roomTypeSelected = StringVar()
+    co_roomTypeSelected.set(co_roomType[0])
+    co_roomOptions = OptionMenu(checkout_Frame, roomTypeSelected,
+                             *co_roomType)
+    co_roomOptions.place(x=340, y=300)
+    co_roomOptions.config(font="Times 18")
+
+    roomNumberLabel = Label(checkout_Frame,
+                      text="Room Number :",
+                      font="Times 20",
+                      width=0,
+                      border=5
+                      ).place(x=50, y=400)
+    
+    roomNumberType = ['N01','N02','N03','N04','N05']
+
+    roomNumberTypeSelected = StringVar()
+    roomNumberOptions = OptionMenu(checkout_Frame, roomNumberTypeSelected,
+                             *roomNumberType)
+    roomNumberOptions.place(x=300, y=400)
+    roomNumberOptions.config(font="Times 18")
+
+    checkout_submit_btn = Button(checkout_Frame,
+                                text="CHECK OUT",
+                                font="Times 15",
+                                pady=20,
+                                width=20,
+                                border=5,
+                                command=handleSubmitData
+                                ).place(x=500, y=600)
+
 
     # backBtn = Button(checkout_Frame,
     #                 text="BACK TO MENU",
