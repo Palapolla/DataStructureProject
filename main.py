@@ -647,9 +647,6 @@ if __name__ == '__main__':
                     border=5
                     
                     ).place(x=850,y=550)
-
-
-
     
 
     
