@@ -13,8 +13,21 @@
   },
   "D03": {
     "type": "Deluxe",
-    "dateBooking": [],
-    "bookingData": []
+    "dateBooking": [
+      "2021-12-17"
+    ],
+    "bookingData": [
+      {
+        "Name": "A",
+        "Surname": "A",
+        "tel": "8888888888",
+        "roomType": "Deluxe",
+        "roomID": "D03",
+        "dateIn": "2021-12-17",
+        "dateOut": "2021-12-18",
+        "id": 3
+      }
+    ]
   },
   "D04": {
     "type": "Deluxe",

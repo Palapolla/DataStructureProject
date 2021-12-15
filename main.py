@@ -37,11 +37,18 @@ def insertion_sort(array,key):
 def quick_sort(lst,key):
     global data_key
     key_index=data_key.index(key)
-    if not lst:
-        return []
-    return (quick_sort([x for x in lst[1:] if x[key_index] <  lst[0][key_index]],key)
-            + [lst[0]] +
-            quick_sort([x for x in lst[1:] if x[key_index] >= lst[0][key_index]],key))
+    if key == 'Name' or key == 'Surname':
+        if not lst:
+            return []
+        return (quick_sort([x for x in lst[1:] if x[key_index].lower() <  lst[0][key_index].lower()],key)
+                + [lst[0]] +
+                quick_sort([x for x in lst[1:] if x[key_index].lower() >= lst[0][key_index].lower()],key))
+    else:
+        if not lst:
+            return []
+        return (quick_sort([x for x in lst[1:] if x[key_index] <  lst[0][key_index]],key)
+                + [lst[0]] +
+                quick_sort([x for x in lst[1:] if x[key_index] >= lst[0][key_index]],key))
 
 def sort_by_userid():
     global data_ls,table,root
@@ -186,6 +193,8 @@ def update_data():
                 for dat in data_key:
                     temp.append(items.get(dat))
                 data_ls.append(temp)
+    for ele in data_ls:
+        print(ele)
     return data_ls
 def deleteData(roomID):
     with open("data.json") as f:
