@@ -187,6 +187,18 @@ def update_data():
                     temp.append(items.get(dat))
                 data_ls.append(temp)
     return data_ls
+def deleteData(roomID):
+    with open("data.json") as f:
+        data = json.load(f)
+    data[roomID]["dateBooking"]=[]
+
+    data[roomID]["bookingData"]=[]
+    
+
+    # write
+    with open("data.json", "w") as f:
+        json.dump(data, f, indent=2)
+
 
 
 
@@ -471,85 +483,166 @@ if __name__ == '__main__':
                           border=5
                           ).pack(padx=10, pady=10)
 
-    checkoutNameLabel = Label(checkout_Frame,
-                      text="Enter name :",
+    normalLabel = Label(checkout_Frame,
+                      text="Normal room",
                       font="Times 20",
                       width=0,
                       border=5
                       ).place(x=50, y=200)
 
-    checkoutNameEntry = Entry(checkout_Frame,
-                      font="Times 20",
-                      width=15,
-                      border=5
-                      )
-    checkoutNameEntry.place(x=220, y=200)
 
-    checkoutSurnameLabel = Label(checkout_Frame,
-                      text="Enter surname :",
+    N01Btn = Button(checkout_Frame,
+                    text="N01",
+                    font="Times 15",
+                    pady=10,
+                    width="10",
+                    border=5
+                    ).place(x=50,y=250)
+
+    N02Btn = Button(checkout_Frame,
+                    text="N02",
+                    font="Times 15",
+                    pady=10,
+                    width="10",
+                    border=5
+                    
+                    ).place(x=250,y=250)
+
+    N03Btn = Button(checkout_Frame,
+                    text="N03",
+                    font="Times 15",
+                    pady=10,
+                    width="10",
+                    border=5
+                    
+                    ).place(x=450,y=250)
+
+    N04Btn = Button(checkout_Frame,
+                    text="N04",
+                    font="Times 15",
+                    pady=10,
+                    width="10",
+                    border=5
+                    
+                    ).place(x=650,y=250)
+
+    N05Btn = Button(checkout_Frame,
+                    text="N05",
+                    font="Times 15",
+                    pady=10,
+                    width="10",
+                    border=5
+                    
+                    ).place(x=850,y=250)
+
+    deluxeLabel = Label(checkout_Frame,
+                      text="Deluxe room",
                       font="Times 20",
                       width=0,
                       border=5
-                      ).place(x=600, y=200)
+                      ).place(x=50, y=350)
 
-    checkoutSurnameEntry = Entry(checkout_Frame,
-                      font="Times 20",
-                      width=15,
-                      border=5
-                      )
-    checkoutSurnameEntry.place(x=800, y=200)
+    D01Btn = Button(checkout_Frame,
+                    text="D01",
+                    font="Times 15",
+                    pady=10,
+                    width="10",
+                    border=5
+                    
+                    ).place(x=50,y=400)
 
-    checkoutRoomLabel = Label(checkout_Frame,
-                      text="Enter room type :",
+    D02Btn = Button(checkout_Frame,
+                    text="D02",
+                    font="Times 15",
+                    pady=10,
+                    width="10",
+                    border=5
+                    
+                    ).place(x=250,y=400)
+
+    D03Btn = Button(checkout_Frame,
+                    text="N03",
+                    font="Times 15",
+                    pady=10,
+                    width="10",
+                    border=5
+                    
+                    ).place(x=450,y=400)
+
+    D04Btn = Button(checkout_Frame,
+                    text="N04",
+                    font="Times 15",
+                    pady=10,
+                    width="10",
+                    border=5
+                    
+                    ).place(x=650,y=400)
+
+    D05Btn = Button(checkout_Frame,
+                    text="N05",
+                    font="Times 15",
+                    pady=10,
+                    width="10",
+                    border=5
+                    
+                    ).place(x=850,y=400)
+
+    twinLabel = Label(checkout_Frame,
+                      text="Twin room",
                       font="Times 20",
                       width=0,
                       border=5
-                      ).place(x=50, y=300)
+                      ).place(x=50, y=500)
+
+    T01Btn = Button(checkout_Frame,
+                    text="T01",
+                    font="Times 15",
+                    pady=10,
+                    width="10",
+                    border=5
+                    
+                    ).place(x=50,y=550)
+
+    T02Btn = Button(checkout_Frame,
+                    text="T02",
+                    font="Times 15",
+                    pady=10,
+                    width="10",
+                    border=5
+                    
+                    ).place(x=250,y=550)
+
+    T03Btn = Button(checkout_Frame,
+                    text="T03",
+                    font="Times 15",
+                    pady=10,
+                    width="10",
+                    border=5
+                    
+                    ).place(x=450,y=550)
+
+    T04Btn = Button(checkout_Frame,
+                    text="T04",
+                    font="Times 15",
+                    pady=10,
+                    width="10",
+                    border=5
+
+                    ).place(x=650,y=550)
+
+    T05Btn = Button(checkout_Frame,
+                    text="T05",
+                    font="Times 15",
+                    pady=10,
+                    width="10",
+                    border=5
+                    
+                    ).place(x=850,y=550)
+
+
     
 
-    co_roomType = ["Normal", "Deluxe", "Twin"]
-    co_roomTypeSelected = StringVar()
-    co_roomOptions = OptionMenu(checkout_Frame, roomTypeSelected,
-                             *co_roomType)
-    co_roomOptions.place(x=340, y=300)
-    co_roomOptions.config(font="Times 18")
     
-    roomNumberLabel = Label(checkout_Frame,
-                      text="Room Number :",
-                      font="Times 20",
-                      width=0,
-                      border=5
-                      ).place(x=50, y=400)
-
-    roomNumberType = ['N01','N02','N03','N04','N05']
-    
-
-    roomNumberTypeSelected = StringVar()
-    
-    roomNumberOptions = OptionMenu(checkout_Frame, roomNumberTypeSelected,
-                             *roomNumberType)
-    roomNumberOptions.place(x=300, y=400)
-    roomNumberOptions.config(font="Times 18")
-
-    checkout_submit_btn = Button(checkout_Frame,
-                                text="CHECK OUT",
-                                font="Times 15",
-                                pady=20,
-                                width=20,
-                                border=5,
-                                command=handleSubmitData
-                                ).place(x=500, y=600)
-
-
-    # backBtn = Button(checkout_Frame,
-    #                 text="BACK TO MENU",
-    #                 font="Times 15",
-    #                 pady=20,
-    #                 width=20,
-    #                 border=5,
-    #                 command=lambda: show_frame(menu_Frame)
-    #                 ).place(x=10, y=630)
-
     show_frame(menu_Frame)
 
     root.mainloop()

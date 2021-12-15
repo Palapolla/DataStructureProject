@@ -1,5 +1,5 @@
 {
-  "LastID": 3,
+  "LastID": 5,
   "D01": {
     "type": "Deluxe",
     "dateBooking": [],
@@ -7,24 +7,9 @@
   },
   "D02": {
     "type": "Deluxe",
-    "dateBooking": [
-      "2021-12-02",
-      "2021-12-03",
-      "2021-12-04",
-      "2021-12-05"
-    ],
-    "bookingData": [
-      {
-        "Name": "Premz",
-        "Surname": "Ksd",
-        "tel": "0000000000",
-        "roomType": "Deluxe",
-        "roomID": "D02",
-        "dateIn": "2021-12-02",
-        "dateOut": "2021-12-06",
-        "id": 1
-      }
-    ]
+    "dateBooking": [],
+    "bookingData": [],
+    "id": 4
   },
   "D03": {
     "type": "Deluxe",
@@ -43,23 +28,9 @@
   },
   "N01": {
     "type": "Normal",
-    "dateBooking": [
-      "2021-12-03",
-      "2021-12-04",
-      "2021-12-05"
-    ],
-    "bookingData": [
-      {
-        "Name": "polapolapola",
-        "Surname": "polapolapolapola",
-        "tel": "0000000000",
-        "roomType": "Normal",
-        "roomID": "N01",
-        "dateIn": "2021-12-03",
-        "dateOut": "2021-12-06",
-        "id": 2
-      }
-    ]
+    "dateBooking": [],
+    "bookingData": [],
+    "id": 7
   },
   "N02": {
     "type": "Normal",
@@ -93,48 +64,15 @@
   },
   "T03": {
     "type": "Twin",
-    "dateBooking": [
-      "2021-12-15",
-      "2021-12-16",
-      "2021-12-17",
-      "2021-12-18"
-    ],
-    "bookingData": [
-      {
-        "Name": "angpao",
-        "Surname": "surapat",
-        "tel": "xxxxxxxxxx",
-        "roomType": "Twin",
-        "roomID": "T03",
-        "dateIn": "2021-12-15",
-        "dateOut": "2021-12-19",
-        "id": 3
-      }
-    ]
+    "dateBooking": [],
+    "bookingData": [],
+    "id": 6
   },
   "T04": {
     "type": "Twin",
-    "dateBooking": [
-      "2021-12-02",
-      "2021-12-03",
-      "2021-12-04",
-      "2021-12-05",
-      "2021-12-06",
-      "2021-12-07",
-      "2021-12-08"
-    ],
-    "bookingData": [
-      {
-        "Name": "warapob",
-        "Surname": "Keatkongsang",
-        "tel": "0000000000",
-        "roomType": "Twin",
-        "roomID": "T04",
-        "dateIn": "2021-12-02",
-        "dateOut": "2021-12-09",
-        "id": 0
-      }
-    ]
+    "dateBooking": [],
+    "bookingData": [],
+    "id": 2
   },
   "T05": {
     "type": "Twin",
