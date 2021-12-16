@@ -1,5 +1,5 @@
 {
-  "LastID": 40,
+  "LastID": 41,
   "D01": {
     "type": "Deluxe",
     "dateBooking": [],
@@ -78,8 +78,29 @@
   },
   "T01": {
     "type": "Twin",
-    "dateBooking": [],
-    "bookingData": []
+    "dateBooking": [
+      "2021-12-21",
+      "2021-12-22",
+      "2021-12-23",
+      "2021-12-24",
+      "2021-12-25",
+      "2021-12-26",
+      "2021-12-27",
+      "2021-12-28",
+      "2021-12-29"
+    ],
+    "bookingData": [
+      {
+        "Name": "warapob",
+        "Surname": "keatkongsang",
+        "tel": "0989999999",
+        "roomType": "Twin",
+        "roomID": "T01",
+        "dateIn": "2021-12-21",
+        "dateOut": "2021-12-30",
+        "id": 41
+      }
+    ]
   },
   "T02": {
     "type": "Twin",

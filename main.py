@@ -38,9 +38,6 @@ def show_frame(frame):
 def sort_date(lst,key):
     global data_key
     key_index=data_key.index(key)
-    # for ele in lst:
-    #     print(ele[key_index].replace("-", ""))
-    key_index=data_key.index(key)
     if not lst:
         return []
     return (quick_sort([x for x in lst[1:] if x[key_index].replace("-", "") <  lst[0][key_index].replace("-", "")],key)
@@ -117,9 +114,7 @@ def sort_by_surname():
         row+=1
 
 def sort_by_datein():
-    global data_ls,table,root,data_key
-    key_index=data_key.index('dateIn')
-    # sorted_dat = sorted(data_ls,key=itemgetter(data_key.index('dateIn')))
+    global data_ls,table,root
     sorted_dat = sort_date(data_ls,'dateIn')
     for i in table.get_children():
             table.delete(i)
@@ -133,7 +128,7 @@ def sort_by_datein():
 
 def sort_by_dateout():
     global data_ls,table,root,data_key
-    sorted_dat = sorted(data_ls,key=itemgetter(data_key.index('dateOut')))
+    sorted_dat = sort_date(data_ls,'dateOut')
     for i in table.get_children():
             table.delete(i)
     root.update()
@@ -195,16 +190,11 @@ def update_data():
     data = read_Json('Data.json')
     for room in data:
         if room != "LastID":
-            
             for items in data[room]["bookingData"]:
                 temp = []
-                print('item',items)
                 for dat in data_key:
                     temp.append(items.get(dat))
-                    print('temp',temp)
                 data_ls.append(temp)
-    for ele in data_ls:
-        print(ele)
     return data_ls
 
 def deleteData(roomID):
