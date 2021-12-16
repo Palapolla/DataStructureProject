@@ -13,27 +13,40 @@ def show_frame(frame):
     frame.tkraise()
         
 # ref. https://stackabuse.com/insertion-sort-in-python/
-def insertion_sort(array,key):
+# def insertion_sort(array,key):
+#     global data_key
+#     key_index=data_key.index(key)
+#     # We start from 1 since the first element is trivially sorted
+#     for index in range(1, len(array)):
+#         currentValue = array[index]
+#         currentPosition = index
+
+#         # As long as we haven't reached the beginning and there is an element
+#         # in our sorted array larger than the one we're trying to insert - move
+#         # that element to the right
+#         while currentPosition > 0 and array[currentPosition - 1][key_index] > currentValue[key_index]:
+#             array[currentPosition] = array[currentPosition - 1]
+#             currentPosition = currentPosition - 1
+
+#         # We have either reached the beginning of the array or we have found
+#         # an element of the sorted array that is smaller than the element
+#         # we're trying to insert at index currentPosition - 1.
+#         # Either way - we insert the element at currentPosition
+#         array[currentPosition] = currentValue
+#     return array
+
+def sort_date(lst,key):
     global data_key
     key_index=data_key.index(key)
-    # We start from 1 since the first element is trivially sorted
-    for index in range(1, len(array)):
-        currentValue = array[index]
-        currentPosition = index
+    # for ele in lst:
+    #     print(ele[key_index].replace("-", ""))
+    key_index=data_key.index(key)
+    if not lst:
+        return []
+    return (quick_sort([x for x in lst[1:] if x[key_index].replace("-", "") <  lst[0][key_index].replace("-", "")],key)
+            + [lst[0]] +
+            quick_sort([x for x in lst[1:] if x[key_index].replace("-", "") >= lst[0][key_index].replace("-", "")],key))
 
-        # As long as we haven't reached the beginning and there is an element
-        # in our sorted array larger than the one we're trying to insert - move
-        # that element to the right
-        while currentPosition > 0 and array[currentPosition - 1][key_index] > currentValue[key_index]:
-            array[currentPosition] = array[currentPosition - 1]
-            currentPosition = currentPosition - 1
-
-        # We have either reached the beginning of the array or we have found
-        # an element of the sorted array that is smaller than the element
-        # we're trying to insert at index currentPosition - 1.
-        # Either way - we insert the element at currentPosition
-        array[currentPosition] = currentValue
-    return array
 # ref https://www.delftstack.com/howto/python/sort-list-alphabetically/
 def quick_sort(lst,key):
     global data_key
@@ -53,7 +66,7 @@ def quick_sort(lst,key):
 
 def sort_by_userid():
     global data_ls,table,root
-    sorted_dat = insertion_sort(data_ls,'id')
+    sorted_dat = quick_sort(data_ls,'id')
     for i in table.get_children():
             table.delete(i)
     root.update()
@@ -105,7 +118,9 @@ def sort_by_surname():
 
 def sort_by_datein():
     global data_ls,table,root,data_key
-    sorted_dat = sorted(data_ls,key=itemgetter(data_key.index('dateIn')))
+    key_index=data_key.index('dateIn')
+    # sorted_dat = sorted(data_ls,key=itemgetter(data_key.index('dateIn')))
+    sorted_dat = sort_date(data_ls,'dateIn')
     for i in table.get_children():
             table.delete(i)
     root.update()
@@ -149,6 +164,7 @@ def handleSubmitData():
     global data_ls
     handleError = checkin.writeData(nameEntry.get(), sureNameEntry.get(), phoneEntry.get(
     ), roomTypeSelected.get(), roomSelectedVariable.get(), dateCheckin.get_date(), dateCheckout.get_date())
+    data_ls=update_data()
     update_table()
     messagebox.showinfo("Status", handleError)
 
@@ -179,10 +195,13 @@ def update_data():
     data = read_Json('Data.json')
     for room in data:
         if room != "LastID":
-            temp = []
+            
             for items in data[room]["bookingData"]:
+                temp = []
+                print('item',items)
                 for dat in data_key:
                     temp.append(items.get(dat))
+                    print('temp',temp)
                 data_ls.append(temp)
     for ele in data_ls:
         print(ele)

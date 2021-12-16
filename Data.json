@@ -1,5 +1,5 @@
 {
-  "LastID": 32,
+  "LastID": 40,
   "D01": {
     "type": "Deluxe",
     "dateBooking": [],
@@ -8,13 +8,25 @@
   "D02": {
     "type": "Deluxe",
     "dateBooking": [],
-    "bookingData": [],
-    "id": 4
+    "bookingData": []
   },
   "D03": {
     "type": "Deluxe",
-    "dateBooking": [],
-    "bookingData": []
+    "dateBooking": [
+      "2021-12-24"
+    ],
+    "bookingData": [
+      {
+        "Name": "sdfdsa",
+        "Surname": "asdffdfsa",
+        "tel": "0000000000",
+        "roomType": "Deluxe",
+        "roomID": "D03",
+        "dateIn": "2021-12-24",
+        "dateOut": "2021-12-25",
+        "id": 35
+      }
+    ]
   },
   "D04": {
     "type": "Deluxe",
@@ -29,8 +41,7 @@
   "N01": {
     "type": "Normal",
     "dateBooking": [],
-    "bookingData": [],
-    "id": 7
+    "bookingData": []
   },
   "N02": {
     "type": "Normal",
@@ -39,8 +50,21 @@
   },
   "N03": {
     "type": "Normal",
-    "dateBooking": [],
-    "bookingData": []
+    "dateBooking": [
+      "2021-12-20"
+    ],
+    "bookingData": [
+      {
+        "Name": "asdf",
+        "Surname": "asdf",
+        "tel": "0000000000",
+        "roomType": "Normal",
+        "roomID": "N03",
+        "dateIn": "2021-12-20",
+        "dateOut": "2021-12-21",
+        "id": 34
+      }
+    ]
   },
   "N04": {
     "type": "Normal",
@@ -65,14 +89,12 @@
   "T03": {
     "type": "Twin",
     "dateBooking": [],
-    "bookingData": [],
-    "id": 6
+    "bookingData": []
   },
   "T04": {
     "type": "Twin",
     "dateBooking": [],
-    "bookingData": [],
-    "id": 2
+    "bookingData": []
   },
   "T05": {
     "type": "Twin",
