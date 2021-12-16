@@ -1,3 +1,4 @@
+from os import name
 from tkinter import *
 from tkcalendar import *
 from tkinter import messagebox
@@ -208,7 +209,69 @@ def deleteData(roomID):
     with open("data.json", "w") as f:
         json.dump(data, f, indent=2)
 
-
+def handleSubmitCheckout():
+    global data_ls
+    if N01.get():
+        deleteData("N01")
+        update_data()
+        messagebox.showinfo("Status", 'Successfull')
+    if N02.get():
+        deleteData("N02")
+        update_data()
+        messagebox.showinfo("Status", 'Successfull')
+    if N03.get():
+        deleteData("N03")
+        update_data()
+        messagebox.showinfo("Status", 'Successfull')
+    if N04.get():
+        deleteData("N04")
+        update_data()
+        messagebox.showinfo("Status", 'Successfull')
+    if N05.get():
+        deleteData("N05")
+        update_data()
+        messagebox.showinfo("Status", 'Successfull')
+    if D01.get():
+        deleteData("D01")
+        update_data()
+        messagebox.showinfo("Status", 'Successfull')
+    if D02.get():
+        deleteData("D02")
+        update_data()
+        messagebox.showinfo("Status", 'Successfull')
+    if D03.get():
+        deleteData("D03")
+        update_data()
+        messagebox.showinfo("Status", 'Successfull')
+    if D04.get():
+        deleteData("D04")
+        update_data()
+        messagebox.showinfo("Status", 'Successfull')
+    if D05.get():
+        deleteData("D05")
+        update_data()
+        messagebox.showinfo("Status", 'Successfull')
+    if T01.get():
+        deleteData("T01")
+        update_data()
+        messagebox.showinfo("Status", 'Successfull')
+    if T02.get():
+        deleteData("T02")
+        update_data()
+        messagebox.showinfo("Status", 'Successfull')
+    if T03.get():
+        deleteData("T03")
+        update_data()
+        messagebox.showinfo("Status", 'Successfull')
+    if T04.get():
+        deleteData("T04")
+        update_data()
+        messagebox.showinfo("Status", 'Successfull')
+    if T05.get():
+        deleteData("T05")
+        update_data()
+        messagebox.showinfo("Status", 'Successfull')
+    
 
 
 if __name__ == '__main__':
@@ -482,7 +545,7 @@ if __name__ == '__main__':
                     values=ele)
         row+=1
 
-
+    
     # ======================= 3.CHECK OUT Frame Code ================
     checkoutLabel = Label(checkout_Frame,
                           text="CHECK OUT",
@@ -497,156 +560,167 @@ if __name__ == '__main__':
                       font="Times 20",
                       width=0,
                       border=5
-                      ).place(x=50, y=200)
+                      ).place(x=50, y=100)
+    
 
-
-    N01Btn = Button(checkout_Frame,
+    N01=BooleanVar()
+    N01Btn = Checkbutton(checkout_Frame,
                     text="N01",
                     font="Times 15",
                     pady=10,
                     width="10",
-                    border=5
-                    ).place(x=50,y=250)
-
-    N02Btn = Button(checkout_Frame,
+                    border=5,
+                    variable=N01
+                    ).place(x=50,y=175)
+    N02 = BooleanVar()
+    N02Btn = Checkbutton(checkout_Frame,
                     text="N02",
                     font="Times 15",
                     pady=10,
                     width="10",
-                    border=5
-                    
-                    ).place(x=250,y=250)
-
-    N03Btn = Button(checkout_Frame,
+                    border=5,
+                    variable=N02
+                    ).place(x=250,y=175)
+    N03 = BooleanVar()
+    N03Btn = Checkbutton(checkout_Frame,
                     text="N03",
                     font="Times 15",
                     pady=10,
                     width="10",
-                    border=5
-                    
-                    ).place(x=450,y=250)
-
-    N04Btn = Button(checkout_Frame,
+                    border=5,
+                    variable=N03
+                    ).place(x=450,y=175)
+    N04 = BooleanVar()
+    N04Btn = Checkbutton(checkout_Frame,
                     text="N04",
                     font="Times 15",
                     pady=10,
                     width="10",
-                    border=5
-                    
-                    ).place(x=650,y=250)
-
-    N05Btn = Button(checkout_Frame,
+                    border=5,
+                    variable=N04
+                    ).place(x=650,y=175)
+    N05 = BooleanVar()
+    N05Btn = Checkbutton(checkout_Frame,
                     text="N05",
                     font="Times 15",
                     pady=10,
                     width="10",
-                    border=5
-                    
-                    ).place(x=850,y=250)
+                    border=5,
+                    variable=N05
+                    ).place(x=850,y=175)
 
     deluxeLabel = Label(checkout_Frame,
                       text="Deluxe room",
                       font="Times 20",
                       width=0,
                       border=5
-                      ).place(x=50, y=350)
-
-    D01Btn = Button(checkout_Frame,
+                      ).place(x=50, y=250)
+    D01 = BooleanVar()
+    D01Btn = Checkbutton(checkout_Frame,
                     text="D01",
                     font="Times 15",
                     pady=10,
                     width="10",
-                    border=5
-                    
-                    ).place(x=50,y=400)
-
-    D02Btn = Button(checkout_Frame,
+                    border=5,
+                    variable=D01
+                    ).place(x=50,y=325)
+    D02 = BooleanVar()
+    D02Btn = Checkbutton(checkout_Frame,
                     text="D02",
                     font="Times 15",
                     pady=10,
                     width="10",
-                    border=5
-                    
-                    ).place(x=250,y=400)
-
-    D03Btn = Button(checkout_Frame,
-                    text="N03",
+                    border=5,
+                    variable=D02
+                    ).place(x=250,y=325)
+    D03 = BooleanVar()
+    D03Btn = Checkbutton(checkout_Frame,
+                    text="D03",
                     font="Times 15",
                     pady=10,
                     width="10",
-                    border=5
-                    
-                    ).place(x=450,y=400)
-
-    D04Btn = Button(checkout_Frame,
-                    text="N04",
+                    border=5,
+                    variable=D03
+                    ).place(x=450,y=325)
+    D04 = BooleanVar()
+    D04Btn = Checkbutton(checkout_Frame,
+                    text="D04",
                     font="Times 15",
                     pady=10,
                     width="10",
-                    border=5
-                    
-                    ).place(x=650,y=400)
-
-    D05Btn = Button(checkout_Frame,
-                    text="N05",
+                    border=5,
+                    variable=D04
+                    ).place(x=650,y=325)
+    D05 = BooleanVar()
+    D05Btn = Checkbutton(checkout_Frame,
+                    text="D05",
                     font="Times 15",
                     pady=10,
                     width="10",
-                    border=5
-                    
-                    ).place(x=850,y=400)
+                    border=5,
+                    variable=D05
+                    ).place(x=850,y=325)
 
     twinLabel = Label(checkout_Frame,
                       text="Twin room",
                       font="Times 20",
                       width=0,
-                      border=5
-                      ).place(x=50, y=500)
-
-    T01Btn = Button(checkout_Frame,
+                      border=5,
+                      ).place(x=50, y=400)
+    T01 = BooleanVar()
+    T01Btn = Checkbutton(checkout_Frame,
                     text="T01",
                     font="Times 15",
                     pady=10,
                     width="10",
-                    border=5
-                    
-                    ).place(x=50,y=550)
-
-    T02Btn = Button(checkout_Frame,
+                    border=5,
+                    variable=T01
+                    ).place(x=50,y=475)
+    T02 = BooleanVar()
+    T02Btn = Checkbutton(checkout_Frame,
                     text="T02",
                     font="Times 15",
                     pady=10,
                     width="10",
-                    border=5
-                    
-                    ).place(x=250,y=550)
-
-    T03Btn = Button(checkout_Frame,
+                    border=5,
+                    variable=T02
+                    ).place(x=250,y=475)
+    T03 = BooleanVar()
+    T03Btn = Checkbutton(checkout_Frame,
                     text="T03",
                     font="Times 15",
                     pady=10,
                     width="10",
-                    border=5
-                    
-                    ).place(x=450,y=550)
-
-    T04Btn = Button(checkout_Frame,
+                    border=5,
+                    variable=T03
+                    ).place(x=450,y=475)
+    T04 = BooleanVar()
+    T04Btn = Checkbutton(checkout_Frame,
                     text="T04",
                     font="Times 15",
                     pady=10,
                     width="10",
-                    border=5
-
-                    ).place(x=650,y=550)
-
-    T05Btn = Button(checkout_Frame,
+                    border=5,
+                    variable=T04
+                    ).place(x=650,y=475)
+    T05 = BooleanVar()
+    T05Btn = Checkbutton(checkout_Frame,
                     text="T05",
                     font="Times 15",
                     pady=10,
                     width="10",
-                    border=5
-                    
-                    ).place(x=850,y=550)
+                    border=5,
+                    variable=T05
+                    ).place(x=850,y=475)
+    
+    checkoutBtn = Button(checkout_Frame,
+                    text='Check out',
+                    font='Times 15',
+                    pady=20,
+                    width=20,
+                    border=10,
+                    command=handleSubmitCheckout
+                    ).place(x=400,y=600) 
     
 
     
