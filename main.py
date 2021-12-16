@@ -149,17 +149,7 @@ def handleSubmitData():
     global data_ls
     handleError = checkin.writeData(nameEntry.get(), sureNameEntry.get(), phoneEntry.get(
     ), roomTypeSelected.get(), roomSelectedVariable.get(), dateCheckin.get_date(), dateCheckout.get_date())
-    for i in table.get_children():
-            table.delete(i)
-    root.update()
-    row = 0
-    data_ls.clear()
-    data_ls = update_data()
-    for ele in data_ls:
-        table.insert(parent="", 
-                    index=row, 
-                    values=ele)
-        row+=1
+    update_table()
     messagebox.showinfo("Status", handleError)
 
 
@@ -197,6 +187,7 @@ def update_data():
     for ele in data_ls:
         print(ele)
     return data_ls
+
 def deleteData(roomID):
     with open("data.json") as f:
         data = json.load(f)
@@ -211,67 +202,84 @@ def deleteData(roomID):
 
 def handleSubmitCheckout():
     global data_ls
+    
     if N01.get():
         deleteData("N01")
-        update_data()
+        
         messagebox.showinfo("Status", 'Successfull')
     if N02.get():
         deleteData("N02")
-        update_data()
+        
         messagebox.showinfo("Status", 'Successfull')
     if N03.get():
         deleteData("N03")
-        update_data()
+        
         messagebox.showinfo("Status", 'Successfull')
     if N04.get():
         deleteData("N04")
-        update_data()
+        
         messagebox.showinfo("Status", 'Successfull')
     if N05.get():
         deleteData("N05")
-        update_data()
+        
         messagebox.showinfo("Status", 'Successfull')
     if D01.get():
         deleteData("D01")
-        update_data()
+        
         messagebox.showinfo("Status", 'Successfull')
     if D02.get():
         deleteData("D02")
-        update_data()
+        
         messagebox.showinfo("Status", 'Successfull')
     if D03.get():
         deleteData("D03")
-        update_data()
+        
         messagebox.showinfo("Status", 'Successfull')
     if D04.get():
         deleteData("D04")
-        update_data()
+        
         messagebox.showinfo("Status", 'Successfull')
     if D05.get():
         deleteData("D05")
-        update_data()
+        
         messagebox.showinfo("Status", 'Successfull')
     if T01.get():
         deleteData("T01")
-        update_data()
+    
         messagebox.showinfo("Status", 'Successfull')
     if T02.get():
         deleteData("T02")
-        update_data()
+        
         messagebox.showinfo("Status", 'Successfull')
     if T03.get():
         deleteData("T03")
-        update_data()
+        
         messagebox.showinfo("Status", 'Successfull')
     if T04.get():
         deleteData("T04")
-        update_data()
+        
         messagebox.showinfo("Status", 'Successfull')
     if T05.get():
         deleteData("T05")
-        update_data()
+        
         messagebox.showinfo("Status", 'Successfull')
+
+    data_ls = update_data()
+    update_table()
     
+def update_table():
+    global data_ls
+    for i in table.get_children():
+            table.delete(i)
+    root.update()
+    row = 0
+    data_ls.clear()
+    data_ls = update_data()
+    for ele in data_ls:
+        table.insert(parent="", 
+                    index=row, 
+                    values=ele)
+        row+=1
 
 
 if __name__ == '__main__':
