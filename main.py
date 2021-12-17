@@ -306,9 +306,9 @@ if __name__ == '__main__':
     root.resizable(width=False, height=False)
 
     menu_Frame = Frame(root)
-    checkin_Frame = Frame(root)
-    guestList_Frame = Frame(root)
-    checkout_Frame = Frame(root)
+    checkin_Frame = Frame(root,background='#ffdead')
+    guestList_Frame = Frame(root,background='#c0dead')
+    checkout_Frame = Frame(root,background='#80dead')
     menu_Frame.grid(row=0, column=1, sticky='ne')
     checkin_Frame.grid(row=0, column=0, sticky='nsew')
     guestList_Frame.grid(row=0, column=0, sticky='nsew')
@@ -318,45 +318,45 @@ if __name__ == '__main__':
     # welcome_message = Label(menu_Frame,
     #                         text="WELCOME",
     #                         width=600,
-    #                         font="Times 56",
+    #                         font="Cascadia 56",
     #                         pady=40).pack(padx=10, pady=10)
 
     checkinBtn = Button(menu_Frame,
                         text="▶CHECK IN",
-                        font="Times 15",
+                        font="Cascadia 15",
                         width=20,
-                        background='#8BEEFF',
-                        activebackground='#2AD6EC',
+                        background='#ffdead',
+                        activebackground='#ffdead',
                         relief='flat',
                         command=lambda: show_frame(checkin_Frame)
                         ).pack()
 
     showGuestBtn = Button(menu_Frame,
                           text="👥GUEST LIST",
-                          font="Times 15",
+                          font="Cascadia 15",
                           width=20,
-                          background='#8BEEFF',
-                          activebackground='#2AD6EC',
+                          background='#c0dead',
+                          activebackground='#c0dead',
                           relief='flat',
                           command=lambda: show_frame(guestList_Frame)
                           ).pack()
 
     checkOutBtn = Button(menu_Frame,
                          text="◀CHECK OUT",
-                         font="Times 15",
+                         font="Cascadia 15",
                          width=20,
-                         background='#8BEEFF',
-                         activebackground='#2AD6EC',
+                         background='#80dead',
+                         activebackground='#80dead',
                          relief='flat',
                          command=lambda: show_frame(checkout_Frame)
                          ).pack()
 
     exitBtn = Button(menu_Frame,
                      text="EXIT",
-                     font="Times 15",
+                     font="Cascadia 15",
                      width=20,
-                     background='#8BEEFF',
-                     activebackground='#2AD6EC',
+                     background='#40dead',
+                     activebackground='#40dead',
                      relief='flat',
                      command=quit
                      ).pack()
@@ -373,7 +373,8 @@ if __name__ == '__main__':
     # ======================= 1.Check in Frame Code ================
     checkinLabel = Label(checkin_Frame,
                          text="CHECK IN",
-                         font="Times 20",
+                         font="Cascadia 20",
+                         background='#ffdead',
                          pady=20,
                          width=20,
                          border=5
@@ -381,13 +382,14 @@ if __name__ == '__main__':
 
     nameLabel = Label(checkin_Frame,
                       text="Enter name :",
-                      font="Times 20",
+                      font="Cascadia 20",
+                      background='#ffdead',
                       width=0,
                       border=5
                       ).place(x=50, y=100)
 
     nameEntry = Entry(checkin_Frame,
-                      font="Times 20",
+                      font="Cascadia 20",
                       width=15,
                       border=5
                       )
@@ -395,13 +397,14 @@ if __name__ == '__main__':
 
     sureNameLabel = Label(checkin_Frame,
                           text="Surname :",
-                          font="Times 20",
+                          font="Cascadia 20",
+                          background='#ffdead',
                           width=20,
                           border=5
                           ).place(x=500, y=100)
 
     sureNameEntry = Entry(checkin_Frame,
-                          font="Times 20",
+                          font="Cascadia 20",
                           width=15,
                           border=5
                           )
@@ -409,13 +412,14 @@ if __name__ == '__main__':
 
     phoneLabel = Label(checkin_Frame,
                        text="Enter phone number:",
-                       font="Times 20",
+                       font="Cascadia 20",
+                       background='#ffdead',
                        width=20,
                        border=5
                        ).place(x=20, y=180)
 
     phoneEntry = Entry(checkin_Frame,
-                       font="Times 20",
+                       font="Cascadia 20",
                        width=30,
                        border=5
                        )
@@ -423,7 +427,8 @@ if __name__ == '__main__':
 
     roomLabel = Label(checkin_Frame,
                       text="Enter room type :",
-                      font="Times 20",
+                      font="Cascadia 20",
+                      background='#ffdead',
                       width=0,
                       border=5
                       ).place(x=50, y=260)
@@ -434,11 +439,12 @@ if __name__ == '__main__':
     roomOptions = OptionMenu(checkin_Frame, roomTypeSelected,
                              *roomType)
     roomOptions.place(x=340, y=260)
-    roomOptions.config(font="Times 18")
+    roomOptions.config(font="Cascadia 18")
 
     labelDateCheckin = Label(checkin_Frame,
                              text="Date check in :",
-                             font="Times 20",
+                             font="Cascadia 20",
+                             background='#ffdead',
                              width=0,
                              border=5
                              ).place(x=50, y=340)
@@ -449,7 +455,8 @@ if __name__ == '__main__':
 
     labelDateCheckout = Label(checkin_Frame,
                               text="Date check out :",
-                              font="Times 20",
+                              font="Cascadia 20",
+                              background='#ffdead',
                               width=0,
                               border=5
                               ).place(x=500, y=340)
@@ -460,7 +467,8 @@ if __name__ == '__main__':
 
     pleaseSelectRoomLabel = Label(checkin_Frame,
                                   text="Select room :",
-                                  font="Times 20",
+                                  font="Cascadia 20",
+                                  background='#ffdead',
                                   width=0,
                                   border=5
                                   ).place(x=50, y=420)
@@ -469,19 +477,19 @@ if __name__ == '__main__':
     roomSelectedVariable.set("\"Not selected\"")
     selectedRoomEntry = Entry(checkin_Frame, state=DISABLED,
                               textvariable=roomSelectedVariable,
-                              font="Times 20", width=14,
+                              font="Cascadia 20", width=14,
                               border=5
                               ).place(x=220, y=420)
 
     selectRoomBtn = Button(checkin_Frame, text="Sel Room",
-                           font="Times 15", command=room_id_selected_command).place(x=500, y=420)
+                           font="Cascadia 15", command=room_id_selected_command).place(x=500, y=420)
 
     clearInputBtn = Button(checkin_Frame, text="Clear input",
-                           font="Times 15", command=clear_input_command).place(x=565, y=520)
+                           font="Cascadia 15", command=clear_input_command).place(x=565, y=520)
 
     checkin_submit_btn = Button(checkin_Frame,
                                 text="SUBMIT",
-                                font="Times 15",
+                                font="Cascadia 15",
                                 pady=20,
                                 width=20,
                                 border=5,
@@ -505,14 +513,15 @@ if __name__ == '__main__':
 
     guestListLabel = Label(guestList_Frame,
                         text="GUEST LIST",
-                        font="Times 20",
+                        font="Cascadia 20",
+                        background='#c0dead',
                         pady=20,
                         width=20,
                         border=5
                         ).pack(side='top')
 
-    table_Frame = LabelFrame(guestList_Frame, 
-                            text="Data")
+    table_Frame = Frame(guestList_Frame, 
+                        background='#c0dead')
     table_Frame.pack(fill=BOTH,expand=YES)
 
 
@@ -566,7 +575,8 @@ if __name__ == '__main__':
     # ======================= 3.CHECK OUT Frame Code ================
     checkoutLabel = Label(checkout_Frame,
                           text="CHECK OUT",
-                          font="Times 20",
+                          font="Cascadia 20",
+                          background='#80dead',
                           pady=20,
                           width=20,
                           border=5
@@ -574,7 +584,8 @@ if __name__ == '__main__':
 
     normalLabel = Label(checkout_Frame,
                       text="Normal room",
-                      font="Times 20",
+                      font="Cascadia 20",
+                      background='#80dead',
                       width=0,
                       border=5
                       ).place(x=50, y=100)
@@ -583,7 +594,7 @@ if __name__ == '__main__':
     N01=BooleanVar()
     N01Btn = Checkbutton(checkout_Frame,
                     text="N01",
-                    font="Times 15",
+                    font="Cascadia 15",
                     pady=10,
                     width="10",
                     border=5,
@@ -592,7 +603,7 @@ if __name__ == '__main__':
     N02 = BooleanVar()
     N02Btn = Checkbutton(checkout_Frame,
                     text="N02",
-                    font="Times 15",
+                    font="Cascadia 15",
                     pady=10,
                     width="10",
                     border=5,
@@ -601,7 +612,7 @@ if __name__ == '__main__':
     N03 = BooleanVar()
     N03Btn = Checkbutton(checkout_Frame,
                     text="N03",
-                    font="Times 15",
+                    font="Cascadia 15",
                     pady=10,
                     width="10",
                     border=5,
@@ -610,7 +621,7 @@ if __name__ == '__main__':
     N04 = BooleanVar()
     N04Btn = Checkbutton(checkout_Frame,
                     text="N04",
-                    font="Times 15",
+                    font="Cascadia 15",
                     pady=10,
                     width="10",
                     border=5,
@@ -619,7 +630,7 @@ if __name__ == '__main__':
     N05 = BooleanVar()
     N05Btn = Checkbutton(checkout_Frame,
                     text="N05",
-                    font="Times 15",
+                    font="Cascadia 15",
                     pady=10,
                     width="10",
                     border=5,
@@ -628,14 +639,15 @@ if __name__ == '__main__':
 
     deluxeLabel = Label(checkout_Frame,
                       text="Deluxe room",
-                      font="Times 20",
+                      font="Cascadia 20",
+                      background='#80dead',
                       width=0,
                       border=5
                       ).place(x=50, y=250)
     D01 = BooleanVar()
     D01Btn = Checkbutton(checkout_Frame,
                     text="D01",
-                    font="Times 15",
+                    font="Cascadia 15",
                     pady=10,
                     width="10",
                     border=5,
@@ -644,7 +656,7 @@ if __name__ == '__main__':
     D02 = BooleanVar()
     D02Btn = Checkbutton(checkout_Frame,
                     text="D02",
-                    font="Times 15",
+                    font="Cascadia 15",
                     pady=10,
                     width="10",
                     border=5,
@@ -653,7 +665,7 @@ if __name__ == '__main__':
     D03 = BooleanVar()
     D03Btn = Checkbutton(checkout_Frame,
                     text="D03",
-                    font="Times 15",
+                    font="Cascadia 15",
                     pady=10,
                     width="10",
                     border=5,
@@ -662,7 +674,7 @@ if __name__ == '__main__':
     D04 = BooleanVar()
     D04Btn = Checkbutton(checkout_Frame,
                     text="D04",
-                    font="Times 15",
+                    font="Cascadia 15",
                     pady=10,
                     width="10",
                     border=5,
@@ -671,7 +683,7 @@ if __name__ == '__main__':
     D05 = BooleanVar()
     D05Btn = Checkbutton(checkout_Frame,
                     text="D05",
-                    font="Times 15",
+                    font="Cascadia 15",
                     pady=10,
                     width="10",
                     border=5,
@@ -680,14 +692,15 @@ if __name__ == '__main__':
 
     twinLabel = Label(checkout_Frame,
                       text="Twin room",
-                      font="Times 20",
+                      font="Cascadia 20",
+                      background='#80dead',
                       width=0,
                       border=5,
                       ).place(x=50, y=400)
     T01 = BooleanVar()
     T01Btn = Checkbutton(checkout_Frame,
                     text="T01",
-                    font="Times 15",
+                    font="Cascadia 15",
                     pady=10,
                     width="10",
                     border=5,
@@ -696,7 +709,7 @@ if __name__ == '__main__':
     T02 = BooleanVar()
     T02Btn = Checkbutton(checkout_Frame,
                     text="T02",
-                    font="Times 15",
+                    font="Cascadia 15",
                     pady=10,
                     width="10",
                     border=5,
@@ -705,7 +718,7 @@ if __name__ == '__main__':
     T03 = BooleanVar()
     T03Btn = Checkbutton(checkout_Frame,
                     text="T03",
-                    font="Times 15",
+                    font="Cascadia 15",
                     pady=10,
                     width="10",
                     border=5,
@@ -714,7 +727,7 @@ if __name__ == '__main__':
     T04 = BooleanVar()
     T04Btn = Checkbutton(checkout_Frame,
                     text="T04",
-                    font="Times 15",
+                    font="Cascadia 15",
                     pady=10,
                     width="10",
                     border=5,
@@ -723,7 +736,7 @@ if __name__ == '__main__':
     T05 = BooleanVar()
     T05Btn = Checkbutton(checkout_Frame,
                     text="T05",
-                    font="Times 15",
+                    font="Cascadia 15",
                     pady=10,
                     width="10",
                     border=5,
