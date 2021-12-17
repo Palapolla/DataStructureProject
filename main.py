@@ -11,7 +11,7 @@ from operator import itemgetter
 
 def show_frame(frame):
     frame.tkraise()
-        
+
 # ref. https://stackabuse.com/insertion-sort-in-python/
 # def insertion_sort(array,key):
 #     global data_key
@@ -35,109 +35,119 @@ def show_frame(frame):
 #         array[currentPosition] = currentValue
 #     return array
 
-def sort_date(lst,key):
+
+def sort_date(lst, key):
     global data_key
-    key_index=data_key.index(key)
+    key_index = data_key.index(key)
     if not lst:
         return []
-    return (quick_sort([x for x in lst[1:] if x[key_index].replace("-", "") <  lst[0][key_index].replace("-", "")],key)
+    return (quick_sort([x for x in lst[1:] if x[key_index].replace("-", "") < lst[0][key_index].replace("-", "")], key)
             + [lst[0]] +
-            quick_sort([x for x in lst[1:] if x[key_index].replace("-", "") >= lst[0][key_index].replace("-", "")],key))
+            quick_sort([x for x in lst[1:] if x[key_index].replace("-", "") >= lst[0][key_index].replace("-", "")], key))
 
 # ref https://www.delftstack.com/howto/python/sort-list-alphabetically/
-def quick_sort(lst,key):
+
+
+def quick_sort(lst, key):
     global data_key
-    key_index=data_key.index(key)
+    key_index = data_key.index(key)
     if key == 'Name' or key == 'Surname':
         if not lst:
             return []
-        return (quick_sort([x for x in lst[1:] if x[key_index].lower() <  lst[0][key_index].lower()],key)
+        return (quick_sort([x for x in lst[1:] if x[key_index].lower() < lst[0][key_index].lower()], key)
                 + [lst[0]] +
-                quick_sort([x for x in lst[1:] if x[key_index].lower() >= lst[0][key_index].lower()],key))
+                quick_sort([x for x in lst[1:] if x[key_index].lower() >= lst[0][key_index].lower()], key))
     else:
         if not lst:
             return []
-        return (quick_sort([x for x in lst[1:] if x[key_index] <  lst[0][key_index]],key)
+        return (quick_sort([x for x in lst[1:] if x[key_index] < lst[0][key_index]], key)
                 + [lst[0]] +
-                quick_sort([x for x in lst[1:] if x[key_index] >= lst[0][key_index]],key))
+                quick_sort([x for x in lst[1:] if x[key_index] >= lst[0][key_index]], key))
+
 
 def sort_by_userid():
-    global data_ls,table,root
-    sorted_dat = quick_sort(data_ls,'id')
+    global data_ls, table, root
+    sorted_dat = quick_sort(data_ls, 'id')
     for i in table.get_children():
-            table.delete(i)
+        table.delete(i)
     root.update()
     row = 0
     for ele in sorted_dat:
-        table.insert(parent="", 
-                    index=row, 
-                    values=ele)
-        row+=1
+        table.insert(parent="",
+                     index=row,
+                     values=ele)
+        row += 1
+
 
 def sort_by_name():
-    global data_ls,table,root
-    sorted_dat = quick_sort(data_ls,'Name')
+    global data_ls, table, root
+    sorted_dat = quick_sort(data_ls, 'Name')
     for i in table.get_children():
-            table.delete(i)
+        table.delete(i)
     root.update()
     row = 0
     for ele in sorted_dat:
-        table.insert(parent="", 
-                    index=row, 
-                    values=ele)
-        row+=1
+        table.insert(parent="",
+                     index=row,
+                     values=ele)
+        row += 1
+
 
 def sort_by_roomNo():
-    global data_ls,table,root
-    sorted_dat = quick_sort(data_ls,'roomID')
+    global data_ls, table, root
+    sorted_dat = quick_sort(data_ls, 'roomID')
     for i in table.get_children():
-            table.delete(i)
+        table.delete(i)
     root.update()
     row = 0
     for ele in sorted_dat:
-        table.insert(parent="", 
-                    index=row, 
-                    values=ele)
-        row+=1
+        table.insert(parent="",
+                     index=row,
+                     values=ele)
+        row += 1
+
 
 def sort_by_surname():
-    global data_ls,table,root
-    sorted_dat = quick_sort(data_ls,'Surname')
+    global data_ls, table, root
+    sorted_dat = quick_sort(data_ls, 'Surname')
     for i in table.get_children():
-            table.delete(i)
+        table.delete(i)
     root.update()
     row = 0
     for ele in sorted_dat:
-        table.insert(parent="", 
-                    index=row, 
-                    values=ele)
-        row+=1
+        table.insert(parent="",
+                     index=row,
+                     values=ele)
+        row += 1
+
 
 def sort_by_datein():
-    global data_ls,table,root
-    sorted_dat = sort_date(data_ls,'dateIn')
+    global data_ls, table, root
+    sorted_dat = sort_date(data_ls, 'dateIn')
     for i in table.get_children():
-            table.delete(i)
+        table.delete(i)
     root.update()
     row = 0
     for ele in sorted_dat:
-        table.insert(parent="", 
-                    index=row, 
-                    values=ele)
-        row+=1
+        table.insert(parent="",
+                     index=row,
+                     values=ele)
+        row += 1
+
 
 def sort_by_dateout():
-    global data_ls,table,root,data_key
-    sorted_dat = sort_date(data_ls,'dateOut')
+    global data_ls, table, root, data_key
+    sorted_dat = sort_date(data_ls, 'dateOut')
     for i in table.get_children():
-            table.delete(i)
+        table.delete(i)
     root.update()
     row = 0
     for ele in sorted_dat:
-        table.insert(parent="", 
-                    index=row, 
-                    values=ele)
-        row+=1
+        table.insert(parent="",
+                     index=row,
+                     values=ele)
+        row += 1
+
 
 def room_id_selected_command():
 
@@ -159,8 +169,9 @@ def handleSubmitData():
     global data_ls
     handleError = checkin.writeData(nameEntry.get(), sureNameEntry.get(), phoneEntry.get(
     ), roomTypeSelected.get(), roomSelectedVariable.get(), dateCheckin.get_date(), dateCheckout.get_date())
-    data_ls=update_data()
+    data_ls = update_data()
     update_table()
+    roomSelectedVariable.set("\"Not selected\"")
     messagebox.showinfo("Status", handleError)
 
 
@@ -179,10 +190,12 @@ def updateTime():
     timeLabel.config(text=now.strftime("%Y-%m-%d %H:%M:%S"))
     timeLabel.after(1000, updateTime)
 
+
 def read_Json(filename):
     with open(filename) as file:
         data = json.load(file)
     return data
+
 
 def update_data():
     global data, data_ls, data_key
@@ -197,98 +210,100 @@ def update_data():
                 data_ls.append(temp)
     return data_ls
 
+
 def deleteData(roomID):
     with open("data.json") as f:
         data = json.load(f)
-    data[roomID]["dateBooking"]=[]
+    data[roomID]["dateBooking"] = []
 
-    data[roomID]["bookingData"]=[]
-    
+    data[roomID]["bookingData"] = []
 
     # write
     with open("data.json", "w") as f:
         json.dump(data, f, indent=2)
 
+
 def handleSubmitCheckout():
     global data_ls
-    
+
     if N01.get():
         deleteData("N01")
-        
+
         messagebox.showinfo("Status", 'Successfull')
     if N02.get():
         deleteData("N02")
-        
+
         messagebox.showinfo("Status", 'Successfull')
     if N03.get():
         deleteData("N03")
-        
+
         messagebox.showinfo("Status", 'Successfull')
     if N04.get():
         deleteData("N04")
-        
+
         messagebox.showinfo("Status", 'Successfull')
     if N05.get():
         deleteData("N05")
-        
+
         messagebox.showinfo("Status", 'Successfull')
     if D01.get():
         deleteData("D01")
-        
+
         messagebox.showinfo("Status", 'Successfull')
     if D02.get():
         deleteData("D02")
-        
+
         messagebox.showinfo("Status", 'Successfull')
     if D03.get():
         deleteData("D03")
-        
+
         messagebox.showinfo("Status", 'Successfull')
     if D04.get():
         deleteData("D04")
-        
+
         messagebox.showinfo("Status", 'Successfull')
     if D05.get():
         deleteData("D05")
-        
+
         messagebox.showinfo("Status", 'Successfull')
     if T01.get():
         deleteData("T01")
-    
+
         messagebox.showinfo("Status", 'Successfull')
     if T02.get():
         deleteData("T02")
-        
+
         messagebox.showinfo("Status", 'Successfull')
     if T03.get():
         deleteData("T03")
-        
+
         messagebox.showinfo("Status", 'Successfull')
     if T04.get():
         deleteData("T04")
-        
+
         messagebox.showinfo("Status", 'Successfull')
     if T05.get():
         deleteData("T05")
-        
+
         messagebox.showinfo("Status", 'Successfull')
 
     data_ls = update_data()
     update_table()
-    
+
+
 def update_table():
     global data_ls
     for i in table.get_children():
-            table.delete(i)
+        table.delete(i)
     root.update()
     row = 0
     data_ls.clear()
     data_ls = update_data()
     for ele in data_ls:
-        table.insert(parent="", 
-                    index=row, 
-                    values=ele)
-        row+=1
+        table.insert(parent="",
+                     index=row,
+                     values=ele)
+        row += 1
 
 
 if __name__ == '__main__':
@@ -306,9 +321,9 @@ if __name__ == '__main__':
     root.resizable(width=False, height=False)
 
     menu_Frame = Frame(root)
-    checkin_Frame = Frame(root,background='#ffdead')
-    guestList_Frame = Frame(root,background='#c0dead')
-    checkout_Frame = Frame(root,background='#80dead')
+    checkin_Frame = Frame(root, background='#ffdead')
+    guestList_Frame = Frame(root, background='#c0dead')
+    checkout_Frame = Frame(root, background='#80dead')
     menu_Frame.grid(row=0, column=1, sticky='ne')
     checkin_Frame.grid(row=0, column=0, sticky='nsew')
     guestList_Frame.grid(row=0, column=0, sticky='nsew')
@@ -510,68 +525,67 @@ if __name__ == '__main__':
     data_ls = []
     data_ls = update_data()
 
-
     guestListLabel = Label(guestList_Frame,
-                        text="GUEST LIST",
-                        font="Cascadia 20",
-                        background='#c0dead',
-                        pady=20,
-                        width=20,
-                        border=5
-                        ).pack(side='top')
+                           text="GUEST LIST",
+                           font="Cascadia 20",
+                           background='#c0dead',
+                           pady=20,
+                           width=20,
+                           border=5
+                           ).pack(side='top')
 
-    table_Frame = Frame(guestList_Frame, 
+    table_Frame = Frame(guestList_Frame,
                         background='#c0dead')
-    table_Frame.pack(fill=BOTH,expand=YES)
+    table_Frame.pack(fill=BOTH, expand=YES)
 
-
-    table_scrollbarx = Scrollbar(table_Frame, 
-                                orient='horizontal')
+    table_scrollbarx = Scrollbar(table_Frame,
+                                 orient='horizontal')
     table_scrollbarx.pack(side=BOTTOM, fill=X)
     # y
-    table_scrollbary = Scrollbar(table_Frame, 
-                                orient='vertical')
+    table_scrollbary = Scrollbar(table_Frame,
+                                 orient='vertical')
     table_scrollbary.pack(side=RIGHT, fill=Y)
     # init table
-    table = ttk.Treeview(table_Frame, 
-                yscrollcommand=table_scrollbary.set, 
-                xscrollcommand=table_scrollbarx.set)
-    
+    table = ttk.Treeview(table_Frame,
+                         yscrollcommand=table_scrollbary.set,
+                         xscrollcommand=table_scrollbarx.set)
+
     table_scrollbary.config(command=table.yview)
     table_scrollbarx.config(command=table.xview)
-    table['columns'] = ('User ID', 'Name','Surname','tel','Room Type','Room No.','Date in','Date out')
-    table.column("#0",width=0,stretch=True)
+    table['columns'] = ('User ID', 'Name', 'Surname', 'tel',
+                        'Room Type', 'Room No.', 'Date in', 'Date out')
+    table.column("#0", width=0, stretch=True)
     for col in table['columns']:
-        table.column(col,anchor=CENTER,width=80)
-    
-    table.heading("#0",text='',anchor=CENTER)
+        table.column(col, anchor=CENTER, width=80)
+
+    table.heading("#0", text='', anchor=CENTER)
     for col in table['columns']:
         if col == 'User ID':
-            table.heading(col,text=col,anchor=CENTER,command=sort_by_userid)
+            table.heading(col, text=col, anchor=CENTER, command=sort_by_userid)
         elif col == 'Name':
-            table.heading(col,text=col,anchor=CENTER,command=sort_by_name)
+            table.heading(col, text=col, anchor=CENTER, command=sort_by_name)
         elif col == 'Surname':
-            table.heading(col,text=col,anchor=CENTER,command=sort_by_surname)
+            table.heading(col, text=col, anchor=CENTER,
+                          command=sort_by_surname)
         elif col == 'Room No.':
-            table.heading(col,text=col,anchor=CENTER,command=sort_by_roomNo)
+            table.heading(col, text=col, anchor=CENTER, command=sort_by_roomNo)
         elif col == 'Date in':
-            table.heading(col,text=col,anchor=CENTER,command=sort_by_datein)
+            table.heading(col, text=col, anchor=CENTER, command=sort_by_datein)
         elif col == 'Date out':
-            table.heading(col,text=col,anchor=CENTER,command=sort_by_dateout)
+            table.heading(col, text=col, anchor=CENTER,
+                          command=sort_by_dateout)
         else:
-            table.heading(col,text=col,anchor=CENTER)
+            table.heading(col, text=col, anchor=CENTER)
 
-
-    table.pack(fill=BOTH,expand=YES)
+    table.pack(fill=BOTH, expand=YES)
 
     row = 0
     for ele in data_ls:
-        table.insert(parent="", 
-                    index=row, 
-                    values=ele)
-        row+=1
+        table.insert(parent="",
+                     index=row,
+                     values=ele)
+        row += 1
 
-    
     # ======================= 3.CHECK OUT Frame Code ================
     checkoutLabel = Label(checkout_Frame,
                           text="CHECK OUT",
@@ -583,112 +597,111 @@ if __name__ == '__main__':
                           ).pack(padx=10, pady=10)
 
     normalLabel = Label(checkout_Frame,
-                      text="Normal room",
-                      font="Cascadia 20",
-                      background='#80dead',
-                      width=0,
-                      border=5
-                      ).place(x=50, y=100)
-    
+                        text="Normal room",
+                        font="Cascadia 20",
+                        background='#80dead',
+                        width=0,
+                        border=5
+                        ).place(x=50, y=100)
 
-    N01=BooleanVar()
+    N01 = BooleanVar()
     N01Btn = Checkbutton(checkout_Frame,
-                    text="N01",
-                    font="Cascadia 15",
-                    pady=10,
-                    width="10",
-                    border=5,
-                    variable=N01
-                    ).place(x=50,y=175)
+                         text="N01",
+                         font="Cascadia 15",
+                         pady=10,
+                         width="10",
+                         border=5,
+                         variable=N01
+                         ).place(x=50, y=175)
     N02 = BooleanVar()
     N02Btn = Checkbutton(checkout_Frame,
-                    text="N02",
-                    font="Cascadia 15",
-                    pady=10,
-                    width="10",
-                    border=5,
-                    variable=N02
-                    ).place(x=250,y=175)
+                         text="N02",
+                         font="Cascadia 15",
+                         pady=10,
+                         width="10",
+                         border=5,
+                         variable=N02
+                         ).place(x=250, y=175)
     N03 = BooleanVar()
     N03Btn = Checkbutton(checkout_Frame,
-                    text="N03",
-                    font="Cascadia 15",
-                    pady=10,
-                    width="10",
-                    border=5,
-                    variable=N03
-                    ).place(x=450,y=175)
+                         text="N03",
+                         font="Cascadia 15",
+                         pady=10,
+                         width="10",
+                         border=5,
+                         variable=N03
+                         ).place(x=450, y=175)
     N04 = BooleanVar()
     N04Btn = Checkbutton(checkout_Frame,
-                    text="N04",
-                    font="Cascadia 15",
-                    pady=10,
-                    width="10",
-                    border=5,
-                    variable=N04
-                    ).place(x=650,y=175)
+                         text="N04",
+                         font="Cascadia 15",
+                         pady=10,
+                         width="10",
+                         border=5,
+                         variable=N04
+                         ).place(x=650, y=175)
     N05 = BooleanVar()
     N05Btn = Checkbutton(checkout_Frame,
-                    text="N05",
-                    font="Cascadia 15",
-                    pady=10,
-                    width="10",
-                    border=5,
-                    variable=N05
-                    ).place(x=850,y=175)
+                         text="N05",
+                         font="Cascadia 15",
+                         pady=10,
+                         width="10",
+                         border=5,
+                         variable=N05
+                         ).place(x=850, y=175)
 
     deluxeLabel = Label(checkout_Frame,
-                      text="Deluxe room",
-                      font="Cascadia 20",
-                      background='#80dead',
-                      width=0,
-                      border=5
-                      ).place(x=50, y=250)
+                        text="Deluxe room",
+                        font="Cascadia 20",
+                        background='#80dead',
+                        width=0,
+                        border=5
+                        ).place(x=50, y=250)
     D01 = BooleanVar()
     D01Btn = Checkbutton(checkout_Frame,
-                    text="D01",
-                    font="Cascadia 15",
-                    pady=10,
-                    width="10",
-                    border=5,
-                    variable=D01
-                    ).place(x=50,y=325)
+                         text="D01",
+                         font="Cascadia 15",
+                         pady=10,
+                         width="10",
+                         border=5,
+                         variable=D01
+                         ).place(x=50, y=325)
     D02 = BooleanVar()
     D02Btn = Checkbutton(checkout_Frame,
-                    text="D02",
-                    font="Cascadia 15",
-                    pady=10,
-                    width="10",
-                    border=5,
-                    variable=D02
-                    ).place(x=250,y=325)
+                         text="D02",
+                         font="Cascadia 15",
+                         pady=10,
+                         width="10",
+                         border=5,
+                         variable=D02
+                         ).place(x=250, y=325)
     D03 = BooleanVar()
     D03Btn = Checkbutton(checkout_Frame,
-                    text="D03",
-                    font="Cascadia 15",
-                    pady=10,
-                    width="10",
-                    border=5,
-                    variable=D03
-                    ).place(x=450,y=325)
+                         text="D03",
+                         font="Cascadia 15",
+                         pady=10,
+                         width="10",
+                         border=5,
+                         variable=D03
+                         ).place(x=450, y=325)
     D04 = BooleanVar()
     D04Btn = Checkbutton(checkout_Frame,
-                    text="D04",
-                    font="Cascadia 15",
-                    pady=10,
-                    width="10",
-                    border=5,
-                    variable=D04
-                    ).place(x=650,y=325)
+                         text="D04",
+                         font="Cascadia 15",
+                         pady=10,
+                         width="10",
+                         border=5,
+                         variable=D04
+                         ).place(x=650, y=325)
     D05 = BooleanVar()
     D05Btn = Checkbutton(checkout_Frame,
-                    text="D05",
-                    font="Cascadia 15",
-                    pady=10,
-                    width="10",
-                    border=5,
-                    variable=D05
-                    ).place(x=850,y=325)
+                         text="D05",
+                         font="Cascadia 15",
+                         pady=10,
+                         width="10",
+                         border=5,
+                         variable=D05
+                         ).place(x=850, y=325)
 
     twinLabel = Label(checkout_Frame,
                       text="Twin room",
@@ -699,61 +712,59 @@ if __name__ == '__main__':
                       ).place(x=50, y=400)
     T01 = BooleanVar()
     T01Btn = Checkbutton(checkout_Frame,
-                    text="T01",
-                    font="Cascadia 15",
-                    pady=10,
-                    width="10",
-                    border=5,
-                    variable=T01
-                    ).place(x=50,y=475)
+                         text="T01",
+                         font="Cascadia 15",
+                         pady=10,
+                         width="10",
+                         border=5,
+                         variable=T01
+                         ).place(x=50, y=475)
     T02 = BooleanVar()
     T02Btn = Checkbutton(checkout_Frame,
-                    text="T02",
-                    font="Cascadia 15",
-                    pady=10,
-                    width="10",
-                    border=5,
-                    variable=T02
-                    ).place(x=250,y=475)
+                         text="T02",
+                         font="Cascadia 15",
+                         pady=10,
+                         width="10",
+                         border=5,
+                         variable=T02
+                         ).place(x=250, y=475)
     T03 = BooleanVar()
     T03Btn = Checkbutton(checkout_Frame,
-                    text="T03",
-                    font="Cascadia 15",
-                    pady=10,
-                    width="10",
-                    border=5,
-                    variable=T03
-                    ).place(x=450,y=475)
+                         text="T03",
+                         font="Cascadia 15",
+                         pady=10,
+                         width="10",
+                         border=5,
+                         variable=T03
+                         ).place(x=450, y=475)
     T04 = BooleanVar()
     T04Btn = Checkbutton(checkout_Frame,
-                    text="T04",
-                    font="Cascadia 15",
-                    pady=10,
-                    width="10",
-                    border=5,
-                    variable=T04
-                    ).place(x=650,y=475)
+                         text="T04",
+                         font="Cascadia 15",
+                         pady=10,
+                         width="10",
+                         border=5,
+                         variable=T04
+                         ).place(x=650, y=475)
     T05 = BooleanVar()
     T05Btn = Checkbutton(checkout_Frame,
-                    text="T05",
-                    font="Cascadia 15",
-                    pady=10,
-                    width="10",
-                    border=5,
-                    variable=T05
-                    ).place(x=850,y=475)
-    
-    checkoutBtn = Button(checkout_Frame,
-                    text='Check out',
-                    font='Times 15',
-                    pady=20,
-                    width=20,
-                    border=10,
-                    command=handleSubmitCheckout
-                    ).place(x=400,y=600) 
-    
+                         text="T05",
+                         font="Cascadia 15",
+                         pady=10,
+                         width="10",
+                         border=5,
+                         variable=T05
+                         ).place(x=850, y=475)
 
-    
+    checkoutBtn = Button(checkout_Frame,
+                         text='Check out',
+                         font='Times 15',
+                         pady=20,
+                         width=20,
+                         border=10,
+                         command=handleSubmitCheckout
+                         ).place(x=400, y=600)
+
     show_frame(menu_Frame)
 
     root.mainloop()

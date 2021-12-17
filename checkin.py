@@ -1,5 +1,6 @@
 import datetime
 import json
+from package import Tree
 
 """
 Room data
@@ -34,14 +35,20 @@ def findAvailableRoom(roomType, checkInDate, checkOutDate):
     for room in data:
         if room != "LastID":
             if data[room]["type"] == roomType:
-                datalst = data[room]["dateBooking"]
-                temp = dataOffset
-                # change this
-                for x in dataOffset:
-                    if x in datalst:
-                        dataOffset.remove(x)
-                if dataOffset == temp:
+
+                myTree = Tree.BST()
+
+                for item in data[room]["dateBooking"]:
+                    myTree.insert(dateToInt(item))
+
+                isAppend = True
+                for date in dataOffset:
+                    if myTree.search(dateToInt(date)):
+                        isAppend = False
+
+                if isAppend:
                     avarilableroom.append(room)
+
     return handleError, avarilableroom
 
 
@@ -98,6 +105,17 @@ def writeData(name, surname, tel, roomType, roomID, dateIn, dateOut):
 
     return "Booking successful"
 
+
+def dateToInt(dateStr):
+    dateStr = dateStr.split("-")
+    s = ''.join(dateStr)
+    return int(s)
+
+
+def intToDate(dateInt):
+    temp = str(dateInt)
+    data = temp[0:4]+"-" + temp[4:6]+"-" + temp[6:]
+    return data
 
 # a, b = findAvailableRoom("Deluxe", datetime.date(
 #     2021, 12, 2), datetime.date(2021, 12, 6))
