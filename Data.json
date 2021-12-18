@@ -1,5 +1,5 @@
 {
-  "LastID": 51,
+  "LastID": 52,
   "D01": {
     "type": "Deluxe",
     "dateBooking": [],
@@ -101,24 +101,8 @@
   },
   "N05": {
     "type": "Normal",
-    "dateBooking": [
-      "2021-12-22",
-      "2021-12-23",
-      "2021-12-24",
-      "2021-12-25"
-    ],
-    "bookingData": [
-      {
-        "Name": "JAK",
-        "Surname": "SSDSD",
-        "tel": "2323333333",
-        "roomType": "Normal",
-        "roomID": "N05",
-        "dateIn": "2021-12-22",
-        "dateOut": "2021-12-26",
-        "id": 50
-      }
-    ]
+    "dateBooking": [],
+    "bookingData": []
   },
   "T01": {
     "type": "Twin",

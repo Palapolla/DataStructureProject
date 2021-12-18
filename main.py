@@ -250,7 +250,9 @@ def fillout(e):
 	checkoutEntry.delete(0, END)
 
 	# Add clicked list item to entry box
-	checkoutEntry.insert(0, id_list.get(ANCHOR))
+	checkoutEntry.insert(0, str(id_list.get(ANCHOR)).split(',')[0].replace("(","").replace("'",""))
+    # checkoutEntry.insert(0, id_list.get(ANCHOR))
+    
 
 # Create function to check entry vs listbox
 def check(e):
@@ -262,7 +264,7 @@ def check(e):
 	else:
 		data = []
 		for item in id_ls:
-			if typed.lower() in item.lower():
+			if typed in item[0]:
 				data.append(item)
 
 	# update our listbox with selected items
@@ -576,21 +578,21 @@ if __name__ == '__main__':
 
     checkoutLabel2 = Label(checkout_Frame,
                            text="Enter ID : ",
-                           font="Cascadia 50",
+                           font="Cascadia 20",
                            background='#80dead'
-                           ).place(x=200, y=260)
+                           ).place(x=150, y=150)
     q=StringVar()
     checkoutEntry = Entry(checkout_Frame,
-                          font="Cascadia 50",
-                          width=4,
+                          font="Cascadia 20",
+                          width=30,
                           border=5,
                           textvariable=q
                           )
-    checkoutEntry.place(x=500, y=260)
+    checkoutEntry.place(x=275, y=150)
 
     checkoutBtn = Button(checkout_Frame,
                          text='Check out',
-                         font='Times 15',
+                         font='Cascadia 15',
                          pady=20,
                          width=20,
                          border=3,
@@ -598,14 +600,20 @@ if __name__ == '__main__':
                          ).place(x=400, y=600)
 
     # Create a listbox
-    id_list = Listbox(checkout_Frame,font='Times 20',width=11,height=5)
-    id_list.place(x=500,y=350)
+    id_list = Listbox(checkout_Frame,font='Cascadia 15',width=50,height=10)
+    id_list.place(x=275,y=200)
 
     # Create a list of pizza toppings
     id_ls = []
-    for i in range(len(data_ls)):
-        id_ls.append(str(data_ls[i][0]))
-
+    # for i in range(len(data_ls)):
+    #     id_ls.append(str(data_ls[i][0]))
+    for ele in data_ls:
+        temp = []
+        temp.append(str(ele[data_key.index('id')]))
+        temp.append('Name : '+str(ele[data_key.index('Name')])+' Surname : '
+                    +str(ele[data_key.index('Surname')])+' Room ID : '
+                    +str(ele[data_key.index('roomID')]))
+        id_ls.append(temp)
     # Add the toppings to our list
     showID(id_ls)
 
