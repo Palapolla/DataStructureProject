@@ -11,23 +11,25 @@ from package import BST
 from package import Node
 
 
-
 def show_frame(frame):
     frame.tkraise()
 
-def sort_date(lst,key):
+
+def sort_date(lst, key):
     # change yyyy-mm-dd --> yyyymmdd then sort it.
     global data_key
     key_index = data_key.index(key)
-    for ele in range(len(lst)-1,0,-1):
+    for ele in range(len(lst)-1, 0, -1):
         for it in range(ele):
-            if lst[it][key_index].replace("-", "")>lst[it+1][key_index].replace("-", ""):
+            if lst[it][key_index].replace("-", "") > lst[it+1][key_index].replace("-", ""):
                 temp = lst[it]
                 lst[it] = lst[it+1]
                 lst[it+1] = temp
     return lst
 
 # ref https://www.delftstack.com/howto/python/sort-list-alphabetically/
+
+
 def quick_sort(lst, key):
     global data_key
     key_index = data_key.index(key)
@@ -44,15 +46,18 @@ def quick_sort(lst, key):
                 + [lst[0]] +
                 quick_sort([x for x in lst[1:] if x[key_index] >= lst[0][key_index]], key))
 
+
 def sort_button_command(key):
     global data_ls
     sorted_dat = quick_sort(data_ls, key)
     update_table(data=sorted_dat)
 
+
 def sortdate_button_command(key):
     global data_ls
     sorted_dat = sort_date(data_ls, key)
     update_table(data=sorted_dat)
+
 
 def room_id_selected_command():
 
@@ -116,20 +121,50 @@ def update_data():
     return data_ls
 
 
-def deleteData(roomID):
-    with open("data.json") as f:
-        data = json.load(f)
-    data[roomID]["dateBooking"] = []
+def deleteData(roomDict):
+    data = read_Json("Data.json")
+    room = roomDict["name"]
+    del roomDict['name']
+    date_in = datetime.datetime.strptime(roomDict["dateIn"], "%Y-%m-%d")
+    date_out = datetime.datetime.strptime(roomDict["dateOut"], "%Y-%m-%d")
 
-    data[roomID]["bookingData"] = []
+    # del_lst = Date that should delete in bookDate
+    del_lst = []
+    amountDay = date_out - date_in
+    for i in range(amountDay.days):
+        baseDt = datetime.datetime.combine(
+            date_in, datetime.datetime.min.time())
+        dt = baseDt+datetime.timedelta(days=i)
+        del_lst.append(str(dt.date()))
+
+    #del data
+    for i in del_lst:
+        data[room]["dateBooking"].remove(i)
+    for i in range(len(data[room]["bookingData"])):
+        if data[room]["bookingData"][i]['id'] == roomDict["id"]:
+            del data[room]["bookingData"][i]
+            print("deleted succcccck!")
+            break
 
     # write
     with open("data.json", "w") as f:
         json.dump(data, f, indent=2)
 
 
+def getRoomByGuestID(guestID):
+    # return dict data
+    data = read_Json("Data.json")
+    for room in data:
+        if room != "LastID":
+            for items in data[room]["bookingData"]:
+                if items["id"] == guestID:
+                    items["name"] = f"{room}"
+                    return items
+
+
 def handleSubmitCheckout():
     if not checkoutEntry.get().isdigit():
+        checkoutEntry.delete(0, 'end')
         return messagebox.showinfo("Status", "please enter only number")
 
     global data_ls
@@ -143,15 +178,22 @@ def handleSubmitCheckout():
     all_id = bubbleSort(all_id)
 
     if binarySearch(all_id, 0, len(all_id)-1, int(checkoutEntry.get())):
-        messagebox.showinfo("Status", "ยังไม่เสร็จ เดี๋ยวมาทำ")
+        room = getRoomByGuestID(int(checkoutEntry.get()))
+        MsgBox = messagebox.askquestion(
+            'Status', f'Are you sure you want checked out this room\nID : {room["id"]} room : {room["name"]}\nGuest : {room["Name"]} {room["Surname"]}', icon='warning')
+        if MsgBox == 'yes':
+            deleteData(room)
+            checkoutEntry.delete(0, 'end')
+            messagebox.showinfo("Status", "Check out successful")
     else:
+        checkoutEntry.delete(0, 'end')
         messagebox.showinfo("Status", "ID not found :(")
 
     data_ls = update_data()
     update_table()
 
 
-def update_table(data = None,tab = None,r = None):
+def update_table(data=None, tab=None, r=None):
     global data_ls
     if tab == None:
         tab = table
@@ -456,21 +498,29 @@ if __name__ == '__main__':
     table.heading("#0", text='', anchor=CENTER)
     for col in table['columns']:
         if col == 'User ID':
-            table.heading(col, text=col, anchor=CENTER, command=lambda: sort_button_command('id'))
+            table.heading(col, text=col, anchor=CENTER,
+                          command=lambda: sort_button_command('id'))
         elif col == 'Name':
-            table.heading(col, text=col, anchor=CENTER, command=lambda: sort_button_command('Name'))
+            table.heading(col, text=col, anchor=CENTER,
+                          command=lambda: sort_button_command('Name'))
         elif col == 'Surname':
-            table.heading(col, text=col, anchor=CENTER,command=lambda: sort_button_command('Surname'))
+            table.heading(col, text=col, anchor=CENTER,
+                          command=lambda: sort_button_command('Surname'))
         elif col == 'Room No.':
-            table.heading(col, text=col, anchor=CENTER, command=lambda: sort_button_command('roomID'))
+            table.heading(col, text=col, anchor=CENTER,
+                          command=lambda: sort_button_command('roomID'))
         elif col == 'Date in':
-            table.heading(col, text=col, anchor=CENTER, command=lambda: sortdate_button_command('dateIn'))
+            table.heading(col, text=col, anchor=CENTER,
+                          command=lambda: sortdate_button_command('dateIn'))
         elif col == 'Date out':
-            table.heading(col, text=col, anchor=CENTER,command=lambda: sortdate_button_command('dateOut'))
+            table.heading(col, text=col, anchor=CENTER,
+                          command=lambda: sortdate_button_command('dateOut'))
         elif col == 'tel':
-            table.heading(col, text=col, anchor=CENTER,command=lambda: sort_button_command('tel'))
+            table.heading(col, text=col, anchor=CENTER,
+                          command=lambda: sort_button_command('tel'))
         elif col == 'Room Type':
-            table.heading(col, text=col, anchor=CENTER,command=lambda: sort_button_command('roomType'))
+            table.heading(col, text=col, anchor=CENTER,
+                          command=lambda: sort_button_command('roomType'))
         else:
             table.heading(col, text=col, anchor=CENTER)
 
