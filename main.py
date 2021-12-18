@@ -11,45 +11,23 @@ from package import BST
 from package import Node
 
 
+
 def show_frame(frame):
     frame.tkraise()
 
-# ref. https://stackabuse.com/insertion-sort-in-python/
-# def insertion_sort(array,key):
-#     global data_key
-#     key_index=data_key.index(key)
-#     # We start from 1 since the first element is trivially sorted
-#     for index in range(1, len(array)):
-#         currentValue = array[index]
-#         currentPosition = index
-
-#         # As long as we haven't reached the beginning and there is an element
-#         # in our sorted array larger than the one we're trying to insert - move
-#         # that element to the right
-#         while currentPosition > 0 and array[currentPosition - 1][key_index] > currentValue[key_index]:
-#             array[currentPosition] = array[currentPosition - 1]
-#             currentPosition = currentPosition - 1
-
-#         # We have either reached the beginning of the array or we have found
-#         # an element of the sorted array that is smaller than the element
-#         # we're trying to insert at index currentPosition - 1.
-#         # Either way - we insert the element at currentPosition
-#         array[currentPosition] = currentValue
-#     return array
-
-
-def sort_date(lst, key):
+def sort_date(lst,key):
+    # change yyyy-mm-dd --> yyyymmdd then sort it.
     global data_key
     key_index = data_key.index(key)
-    if not lst:
-        return []
-    return (quick_sort([x for x in lst[1:] if x[key_index].replace("-", "") < lst[0][key_index].replace("-", "")], key)
-            + [lst[0]] +
-            quick_sort([x for x in lst[1:] if x[key_index].replace("-", "") >= lst[0][key_index].replace("-", "")], key))
+    for ele in range(len(lst)-1,0,-1):
+        for it in range(ele):
+            if lst[it][key_index].replace("-", "")>lst[it+1][key_index].replace("-", ""):
+                temp = lst[it]
+                lst[it] = lst[it+1]
+                lst[it+1] = temp
+    return lst
 
 # ref https://www.delftstack.com/howto/python/sort-list-alphabetically/
-
-
 def quick_sort(lst, key):
     global data_key
     key_index = data_key.index(key)
@@ -66,90 +44,15 @@ def quick_sort(lst, key):
                 + [lst[0]] +
                 quick_sort([x for x in lst[1:] if x[key_index] >= lst[0][key_index]], key))
 
+def sort_button_command(key):
+    global data_ls
+    sorted_dat = quick_sort(data_ls, key)
+    update_table(data=sorted_dat)
 
-def sort_by_userid():
-    global data_ls, table, root
-    sorted_dat = quick_sort(data_ls, 'id')
-    for i in table.get_children():
-        table.delete(i)
-    root.update()
-    row = 0
-    for ele in sorted_dat:
-        table.insert(parent="",
-                     index=row,
-                     values=ele)
-        row += 1
-
-
-def sort_by_name():
-    global data_ls, table, root
-    sorted_dat = quick_sort(data_ls, 'Name')
-    for i in table.get_children():
-        table.delete(i)
-    root.update()
-    row = 0
-    for ele in sorted_dat:
-        table.insert(parent="",
-                     index=row,
-                     values=ele)
-        row += 1
-
-
-def sort_by_roomNo():
-    global data_ls, table, root
-    sorted_dat = quick_sort(data_ls, 'roomID')
-    for i in table.get_children():
-        table.delete(i)
-    root.update()
-    row = 0
-    for ele in sorted_dat:
-        table.insert(parent="",
-                     index=row,
-                     values=ele)
-        row += 1
-
-
-def sort_by_surname():
-    global data_ls, table, root
-    sorted_dat = quick_sort(data_ls, 'Surname')
-    for i in table.get_children():
-        table.delete(i)
-    root.update()
-    row = 0
-    for ele in sorted_dat:
-        table.insert(parent="",
-                     index=row,
-                     values=ele)
-        row += 1
-
-
-def sort_by_datein():
-    global data_ls, table, root
-    sorted_dat = sort_date(data_ls, 'dateIn')
-    for i in table.get_children():
-        table.delete(i)
-    root.update()
-    row = 0
-    for ele in sorted_dat:
-        table.insert(parent="",
-                     index=row,
-                     values=ele)
-        row += 1
-
-
-def sort_by_dateout():
-    global data_ls, table, root, data_key
-    sorted_dat = sort_date(data_ls, 'dateOut')
-    for i in table.get_children():
-        table.delete(i)
-    root.update()
-    row = 0
-    for ele in sorted_dat:
-        table.insert(parent="",
-                     index=row,
-                     values=ele)
-        row += 1
-
+def sortdate_button_command(key):
+    global data_ls
+    sorted_dat = sort_date(data_ls, key)
+    update_table(data=sorted_dat)
 
 def room_id_selected_command():
 
@@ -293,15 +196,21 @@ def handleSubmitCheckout():
     update_table()
 
 
-def update_table():
+def update_table(data = None,tab = None,r = None):
     global data_ls
-    for i in table.get_children():
-        table.delete(i)
-    root.update()
+    if tab == None:
+        tab = table
+    if r == None:
+        r = root
+    for i in tab.get_children():
+        tab.delete(i)
+    r.update()
     row = 0
-    data_ls.clear()
-    data_ls = update_data()
-    for ele in data_ls:
+    if data == None:
+        data_ls.clear()
+        data_ls = update_data()
+        data = data_ls
+    for ele in data:
         table.insert(parent="",
                      index=row,
                      values=ele)
@@ -311,7 +220,6 @@ def update_table():
 if __name__ == '__main__':
 
     root = Tk()
-    BST = BST()
     root.rowconfigure(0, weight=1)
     root.columnconfigure(0, weight=1)
 
@@ -563,19 +471,21 @@ if __name__ == '__main__':
     table.heading("#0", text='', anchor=CENTER)
     for col in table['columns']:
         if col == 'User ID':
-            table.heading(col, text=col, anchor=CENTER, command=sort_by_userid)
+            table.heading(col, text=col, anchor=CENTER, command=lambda: sort_button_command('id'))
         elif col == 'Name':
-            table.heading(col, text=col, anchor=CENTER, command=sort_by_name)
+            table.heading(col, text=col, anchor=CENTER, command=lambda: sort_button_command('Name'))
         elif col == 'Surname':
-            table.heading(col, text=col, anchor=CENTER,
-                          command=sort_by_surname)
+            table.heading(col, text=col, anchor=CENTER,command=lambda: sort_button_command('Surname'))
         elif col == 'Room No.':
-            table.heading(col, text=col, anchor=CENTER, command=sort_by_roomNo)
+            table.heading(col, text=col, anchor=CENTER, command=lambda: sort_button_command('roomID'))
         elif col == 'Date in':
-            table.heading(col, text=col, anchor=CENTER, command=sort_by_datein)
+            table.heading(col, text=col, anchor=CENTER, command=lambda: sortdate_button_command('dateIn'))
         elif col == 'Date out':
-            table.heading(col, text=col, anchor=CENTER,
-                          command=sort_by_dateout)
+            table.heading(col, text=col, anchor=CENTER,command=lambda: sortdate_button_command('dateOut'))
+        elif col == 'tel':
+            table.heading(col, text=col, anchor=CENTER,command=lambda: sort_button_command('tel'))
+        elif col == 'Room Type':
+            table.heading(col, text=col, anchor=CENTER,command=lambda: sort_button_command('roomType'))
         else:
             table.heading(col, text=col, anchor=CENTER)
 
