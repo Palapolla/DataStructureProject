@@ -7,6 +7,8 @@ import checkin
 from tkinter import ttk
 import json
 from operator import itemgetter
+from package import BST
+from package import Node
 
 
 def show_frame(frame):
@@ -294,7 +296,7 @@ def ExitApplication():
 if __name__ == '__main__':
 
     root = Tk()
-
+    BST = BST()
     root.rowconfigure(0, weight=1)
     root.columnconfigure(0, weight=1)
 
