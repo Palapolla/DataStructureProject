@@ -1,5 +1,5 @@
 {
-  "LastID": 50,
+  "LastID": 51,
   "D01": {
     "type": "Deluxe",
     "dateBooking": [],
@@ -25,21 +25,8 @@
   },
   "D03": {
     "type": "Deluxe",
-    "dateBooking": [
-      "2021-12-24"
-    ],
-    "bookingData": [
-      {
-        "Name": "sdfdsa",
-        "Surname": "asdffdfsa",
-        "tel": "0000000000",
-        "roomType": "Deluxe",
-        "roomID": "D03",
-        "dateIn": "2021-12-24",
-        "dateOut": "2021-12-25",
-        "id": 35
-      }
-    ]
+    "dateBooking": [],
+    "bookingData": []
   },
   "D04": {
     "type": "Deluxe",
@@ -84,53 +71,33 @@
   },
   "N02": {
     "type": "Normal",
-    "dateBooking": [
-      "2021-12-17",
-      "2021-12-18",
-      "2021-12-19",
-      "2021-12-20",
-      "2021-12-21",
-      "2021-12-22",
-      "2021-12-23"
-    ],
-    "bookingData": [
-      {
-        "Name": "sd",
-        "Surname": "a",
-        "tel": "7777777777",
-        "roomType": "Normal",
-        "roomID": "N02",
-        "dateIn": "2021-12-17",
-        "dateOut": "2021-12-18",
-        "id": 45
-      },
-      {
-        "Name": "PREMZd",
-        "Surname": "a",
-        "tel": "5555555555",
-        "roomType": "Normal",
-        "roomID": "N02",
-        "dateIn": "2021-12-18",
-        "dateOut": "2021-12-24",
-        "id": 49
-      }
-    ]
+    "dateBooking": [],
+    "bookingData": []
   },
   "N03": {
     "type": "Normal",
     "dateBooking": [
-      "2021-12-20"
+      "2021-12-08",
+      "2021-12-09",
+      "2021-12-10",
+      "2021-12-11",
+      "2021-12-12",
+      "2021-12-13",
+      "2021-12-14",
+      "2021-12-15",
+      "2021-12-16",
+      "2021-12-17"
     ],
     "bookingData": [
       {
-        "Name": "asdf",
-        "Surname": "asdf",
-        "tel": "0000000000",
+        "Name": "asdfg",
+        "Surname": "asd",
+        "tel": "0214567893",
         "roomType": "Normal",
         "roomID": "N03",
-        "dateIn": "2021-12-20",
-        "dateOut": "2021-12-21",
-        "id": 34
+        "dateIn": "2021-12-08",
+        "dateOut": "2021-12-18",
+        "id": 51
       }
     ]
   },

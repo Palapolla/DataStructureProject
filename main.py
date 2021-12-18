@@ -236,6 +236,37 @@ def bubbleSort(arr):
                 arr[j], arr[j + 1] = arr[j + 1], arr[j]
     return arr
 
+def showID(id_ls):
+	# Clear the listbox
+	id_list.delete(0, END)
+
+	# Add toppings to listbox
+	for item in id_ls:
+		id_list.insert(END, item)
+
+# Update entry box with listbox clicked
+def fillout(e):
+	# Delete whatever is in the entry box
+	checkoutEntry.delete(0, END)
+
+	# Add clicked list item to entry box
+	checkoutEntry.insert(0, id_list.get(ANCHOR))
+
+# Create function to check entry vs listbox
+def check(e):
+	# grab what was typed
+	typed = checkoutEntry.get()
+
+	if typed == '':
+		data = id_ls
+	else:
+		data = []
+		for item in id_ls:
+			if typed.lower() in item.lower():
+				data.append(item)
+
+	# update our listbox with selected items
+	showID(data)		
 
 def ExitApplication():
     MsgBox = messagebox.askquestion(
@@ -548,11 +579,12 @@ if __name__ == '__main__':
                            font="Cascadia 50",
                            background='#80dead'
                            ).place(x=200, y=260)
-
+    q=IntVar()
     checkoutEntry = Entry(checkout_Frame,
                           font="Cascadia 50",
                           width=4,
-                          border=5
+                          border=5,
+                          textvariable=q
                           )
     checkoutEntry.place(x=500, y=260)
 
@@ -564,6 +596,25 @@ if __name__ == '__main__':
                          border=3,
                          command=handleSubmitCheckout
                          ).place(x=400, y=600)
+
+    # Create a listbox
+    id_list = Listbox(checkout_Frame,font='Times 20',width=11,height=5)
+    id_list.place(x=500,y=350)
+
+    # Create a list of pizza toppings
+    id_ls = []
+    for i in range(len(data_ls)):
+        id_ls.append(str(data_ls[i][0]))
+
+    # Add the toppings to our list
+    showID(id_ls)
+
+    # Create a binding on the listbox onclick
+    id_list.bind("<<ListboxSelect>>",fillout)
+
+    # Create a binding on the entry box
+    checkoutEntry.bind("<KeyRelease>",check)
+
 
     show_frame(checkin_Frame)
 
