@@ -579,7 +579,7 @@ if __name__ == '__main__':
                            font="Cascadia 50",
                            background='#80dead'
                            ).place(x=200, y=260)
-    q=IntVar()
+    q=StringVar()
     checkoutEntry = Entry(checkout_Frame,
                           font="Cascadia 50",
                           width=4,
