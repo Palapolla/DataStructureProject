@@ -76,7 +76,9 @@ def room_id_selected_command():
 
 
 def handleSubmitData():
-    global data_ls
+    global data_ls,id_ls
+    id_ls = update_lsbox()
+    showID(id_ls)
     handleError = checkin.writeData(nameEntry.get(), sureNameEntry.get(), phoneEntry.get(
     ), roomTypeSelected.get(), roomSelectedVariable.get(), dateCheckin.get_date(), dateCheckout.get_date())
     data_ls = update_data()
@@ -163,6 +165,9 @@ def getRoomByGuestID(guestID):
 
 
 def handleSubmitCheckout():
+    global id_ls
+    id_ls = update_lsbox()
+    showID(id_ls)
     if not checkoutEntry.get().isdigit():
         checkoutEntry.delete(0, 'end')
         return messagebox.showinfo("Status", "please enter only number")
@@ -276,6 +281,17 @@ def ExitApplication():
     if MsgBox == 'yes':
         root.destroy()
 
+def update_lsbox():
+    global data_ls,id_ls
+    id_ls.clear()
+    for ele in data_ls:
+        temp = []
+        temp.append(str(ele[data_key.index('id')]))
+        temp.append('Name : '+str(ele[data_key.index('Name')])+' | Surname : '
+                    +str(ele[data_key.index('Surname')])+' | Room ID : '
+                    +str(ele[data_key.index('roomID')]))
+        id_ls.append(temp)
+    return id_ls
 
 if __name__ == '__main__':
 
@@ -358,7 +374,7 @@ if __name__ == '__main__':
     # ======================= 1.Check in Frame Code ================
     checkinLabel = Label(checkin_Frame,
                          text="CHECK IN",
-                         font="Cascadia 20",
+                         font="Cascadia 30 bold",
                          background='#ffdead',
                          pady=20,
                          width=20,
@@ -424,7 +440,8 @@ if __name__ == '__main__':
     roomOptions = OptionMenu(checkin_Frame, roomTypeSelected,
                              *roomType)
     roomOptions.place(x=340, y=260)
-    roomOptions.config(font="Cascadia 18")
+    roomOptions.config(font="Cascadia 18",
+                        relief=GROOVE)
 
     labelDateCheckin = Label(checkin_Frame,
                              text="Date check in :",
@@ -466,20 +483,28 @@ if __name__ == '__main__':
                               border=5
                               ).place(x=220, y=420)
 
-    selectRoomBtn = Button(checkin_Frame, text="Sel Room",
-                           font="Cascadia 15", command=room_id_selected_command).place(x=500, y=420)
+    selectRoomBtn = Button(checkin_Frame, 
+                            text="Sel Room",
+                            font="Cascadia 15", 
+                            relief=GROOVE,
+                            command=room_id_selected_command
+                            ).place(x=500, y=420)
 
-    clearInputBtn = Button(checkin_Frame, text="Clear input",
-                           font="Cascadia 15", command=clear_input_command).place(x=565, y=520)
+    clearInputBtn = Button(checkin_Frame, 
+                            text="Clear input",
+                            relief=GROOVE,
+                            font="Cascadia 15", 
+                            command=clear_input_command
+                            ).place(x=565, y=520)
 
     checkin_submit_btn = Button(checkin_Frame,
                                 text="SUBMIT",
                                 font="Cascadia 15",
+                                relief=GROOVE,
                                 pady=20,
                                 width=20,
-                                border=5,
                                 command=handleSubmitData
-                                ).place(x=500, y=600)
+                                ).place(x=400, y=600)
 
     # ======================= 2.SHOW GUEST LIST Frame Code ================
     data = read_Json('Data.json')
@@ -496,13 +521,13 @@ if __name__ == '__main__':
     data_ls = update_data()
 
     guestListLabel = Label(guestList_Frame,
-                           text="GUEST LIST",
-                           font="Cascadia 20",
-                           background='#c0dead',
-                           pady=20,
-                           width=20,
-                           border=5
-                           ).pack(side='top')
+                            text="GUEST LIST",
+                            font="Cascadia 30 bold",
+                            background='#c0dead',
+                            pady=20,
+                            width=20,
+                            border=5
+                            ).pack(side='top')
 
     table_Frame = Frame(guestList_Frame,
                         background='#c0dead')
@@ -568,13 +593,13 @@ if __name__ == '__main__':
 
     # ======================= 3.CHECK OUT Frame Code ================
     checkoutLabel = Label(checkout_Frame,
-                          text="CHECK OUT",
-                          font="Cascadia 20",
-                          background='#80dead',
-                          pady=20,
-                          width=20,
-                          border=5
-                          ).pack(padx=10, pady=10)
+                            text="CHECK OUT",
+                            font="Cascadia 30 bold",
+                            background='#80dead',
+                            pady=20,
+                            width=20,
+                            border=5
+                            ).pack(padx=10, pady=10)
 
     checkoutLabel2 = Label(checkout_Frame,
                            text="Enter ID : ",
@@ -591,30 +616,21 @@ if __name__ == '__main__':
     checkoutEntry.place(x=275, y=150)
 
     checkoutBtn = Button(checkout_Frame,
-                         text='Check out',
+                         text='CHECK OUT',
                          font='Cascadia 15',
+                         relief=GROOVE,
                          pady=20,
                          width=20,
-                         border=3,
                          command=handleSubmitCheckout
                          ).place(x=400, y=600)
 
     # Create a listbox
-    id_list = Listbox(checkout_Frame,font='Cascadia 15',width=50,height=10)
-    id_list.place(x=275,y=200)
+    id_list = Listbox(checkout_Frame,font='Cascadia 15',width=65,height=10)
+    id_list.place(x=150,y=200)
 
     # Create a list of pizza toppings
     id_ls = []
-    # for i in range(len(data_ls)):
-    #     id_ls.append(str(data_ls[i][0]))
-    for ele in data_ls:
-        temp = []
-        temp.append(str(ele[data_key.index('id')]))
-        temp.append('Name : '+str(ele[data_key.index('Name')])+' Surname : '
-                    +str(ele[data_key.index('Surname')])+' Room ID : '
-                    +str(ele[data_key.index('roomID')]))
-        id_ls.append(temp)
-    # Add the toppings to our list
+    id_ls = update_lsbox()
     showID(id_ls)
 
     # Create a binding on the listbox onclick
