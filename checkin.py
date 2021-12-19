@@ -1,6 +1,6 @@
 import datetime
 import json
-from package import Tree
+from package import BST
 
 """
 Room data
@@ -36,7 +36,7 @@ def findAvailableRoom(roomType, checkInDate, checkOutDate):
         if room != "LastID":
             if data[room]["type"] == roomType:
 
-                myTree = Tree.BST()
+                myTree = BST()
 
                 for item in data[room]["dateBooking"]:
                     myTree.insert(dateToInt(item))
