@@ -6,9 +6,6 @@ import datetime
 import checkin
 from tkinter import ttk
 import json
-from operator import itemgetter
-from package import BST
-from package import Node
 from package import Stack
 
 
@@ -82,11 +79,11 @@ def room_id_selected_command():
 
 def handleSubmitData():
     global data_ls,id_ls
-    id_ls = update_lsbox()
     showID(id_ls)
     handleError = checkin.writeData(nameEntry.get(), sureNameEntry.get(), phoneEntry.get(
     ), roomTypeSelected.get(), roomSelectedVariable.get(), dateCheckin.get_date(), dateCheckout.get_date())
     data_ls = update_data()
+    id_ls = update_lsbox()
     update_table()
     roomSelectedVariable.set("\"Not selected\"")
     messagebox.showinfo("Status", handleError)
@@ -240,7 +237,6 @@ def update_table(data=None, tab=None, r=None):
             row += 1
     else:
         data = data
-        print(data)
         for ele in range(len(data)):
             table.insert(parent="",
                         index=row,
@@ -312,6 +308,7 @@ def ExitApplication():
 
 def update_lsbox():
     global data_ls,id_ls
+    data_ls = update_data()
     id_ls.clear()
     for ele in data_ls:
         temp = []
