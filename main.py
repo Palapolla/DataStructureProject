@@ -41,22 +41,19 @@ def quick_sort(lst, key):
                 + [lst[0]] +
                 quick_sort([x for x in lst[1:] if x[key_index] >= lst[0][key_index]], key))
 
-
+# list -> sort -> push to stack
 def sort_button_command(key):
     global data_ls,data_stk
     sorted_dat = quick_sort(data_ls, key)
-    sorted_stk = Stack()
-    for ele in sorted_dat:
-        sorted_stk.push(ele) 
+    # sort in list then push in Stack for display on table
+    sorted_stk = update_stack_data(sorted_dat)
     update_table(data=sorted_stk)
 
 
 def sortdate_button_command(key):
     global data_ls
     sorted_dat = sort_date(data_ls, key)
-    sorted_stk = Stack()
-    for ele in sorted_dat:
-        sorted_stk.push(ele) 
+    sorted_stk = update_stack_data(sorted_dat)
     update_table(data=sorted_stk)
 
 
@@ -109,17 +106,12 @@ def read_Json(filename):
         data = json.load(file)
     return data
 
-def update_stack_data():
-    global data, data_ls, data_key,data_stk
-    data = read_Json('Data.json')
-    # for room in data:
-    #     if room != "LastID":
-    #         for items in data[room]["bookingData"]:
-    #             temp = []
-    #             for dat in data_key:
-    #                 temp.append(items.get(dat))
-    #             data_stk.push(temp)
-    for ele in data_ls:
+def update_stack_data(dat = None):
+    # push data to stack
+    global data_ls,data_stk
+    if dat == None:
+        dat = data_ls
+    for ele in dat:
         data_stk.push(ele) 
     return data_stk
 
@@ -181,7 +173,6 @@ def getRoomByGuestID(guestID):
 
 def handleSubmitCheckout():
     global id_ls
-    id_ls = update_lsbox()
     showID(id_ls)
     if not checkoutEntry.get().isdigit():
         checkoutEntry.delete(0, 'end')
@@ -209,12 +200,14 @@ def handleSubmitCheckout():
         checkoutEntry.delete(0, 'end')
         messagebox.showinfo("Status", "ID not found :(")
 
+    id_ls = update_lsbox()
     data_ls = update_data()
     update_table()
 
 
 def update_table(data=None, tab=None, r=None):
-    global data_ls ,data_stk
+    # "data" type : Stack
+    global data_stk
     if tab == None:
         tab = table
     if r == None:
@@ -224,8 +217,6 @@ def update_table(data=None, tab=None, r=None):
     r.update()
     row = 0
     if data == None:
-        data_ls.clear()
-        data_ls = update_data()
         data_stk = Stack()
         data_stk = update_stack_data()
         data = data_stk
@@ -543,9 +534,9 @@ if __name__ == '__main__':
                 "dateIn",
                 "dateOut"]
     data_ls = []
+    data_ls = update_data()
     data_stk = Stack()
     data_stk = update_stack_data()
-    data_ls = update_data()
 
     guestListLabel = Label(guestList_Frame,
                             text="GUEST LIST",
