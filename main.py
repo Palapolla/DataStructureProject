@@ -9,6 +9,7 @@ import json
 from operator import itemgetter
 from package import BST
 from package import Node
+from package import Stack
 
 
 def show_frame(frame):
@@ -28,8 +29,6 @@ def sort_date(lst, key):
     return lst
 
 # ref https://www.delftstack.com/howto/python/sort-list-alphabetically/
-
-
 def quick_sort(lst, key):
     global data_key
     key_index = data_key.index(key)
@@ -48,15 +47,21 @@ def quick_sort(lst, key):
 
 
 def sort_button_command(key):
-    global data_ls
+    global data_ls,data_stk
     sorted_dat = quick_sort(data_ls, key)
-    update_table(data=sorted_dat)
+    sorted_stk = Stack()
+    for ele in sorted_dat:
+        sorted_stk.push(ele) 
+    update_table(data=sorted_stk)
 
 
 def sortdate_button_command(key):
     global data_ls
     sorted_dat = sort_date(data_ls, key)
-    update_table(data=sorted_dat)
+    sorted_stk = Stack()
+    for ele in sorted_dat:
+        sorted_stk.push(ele) 
+    update_table(data=sorted_stk)
 
 
 def room_id_selected_command():
@@ -108,9 +113,22 @@ def read_Json(filename):
         data = json.load(file)
     return data
 
+def update_stack_data():
+    global data, data_ls, data_key,data_stk
+    data = read_Json('Data.json')
+    # for room in data:
+    #     if room != "LastID":
+    #         for items in data[room]["bookingData"]:
+    #             temp = []
+    #             for dat in data_key:
+    #                 temp.append(items.get(dat))
+    #             data_stk.push(temp)
+    for ele in data_ls:
+        data_stk.push(ele) 
+    return data_stk
 
 def update_data():
-    global data, data_ls, data_key
+    global data, data_ls, data_key,data_stk
     data_ls.clear()
     data = read_Json('Data.json')
     for room in data:
@@ -120,6 +138,7 @@ def update_data():
                 for dat in data_key:
                     temp.append(items.get(dat))
                 data_ls.append(temp)
+    data_stk = update_stack_data()
     return data_ls
 
 
@@ -199,7 +218,7 @@ def handleSubmitCheckout():
 
 
 def update_table(data=None, tab=None, r=None):
-    global data_ls
+    global data_ls ,data_stk
     if tab == None:
         tab = table
     if r == None:
@@ -211,12 +230,22 @@ def update_table(data=None, tab=None, r=None):
     if data == None:
         data_ls.clear()
         data_ls = update_data()
-        data = data_ls
-    for ele in data:
-        table.insert(parent="",
-                     index=row,
-                     values=ele)
-        row += 1
+        data_stk = Stack()
+        data_stk = update_stack_data()
+        data = data_stk
+        for ele in range(len(data)):
+            table.insert(parent="",
+                        index=row,
+                        values=data.pop(0))
+            row += 1
+    else:
+        data = data
+        print(data)
+        for ele in range(len(data)):
+            table.insert(parent="",
+                        index=row,
+                        values=data.pop(0))
+            row += 1
 
 
 def binarySearch(arr, l, r, x):
@@ -518,6 +547,8 @@ if __name__ == '__main__':
                 "dateIn",
                 "dateOut"]
     data_ls = []
+    data_stk = Stack()
+    data_stk = update_stack_data()
     data_ls = update_data()
 
     guestListLabel = Label(guestList_Frame,
@@ -585,10 +616,10 @@ if __name__ == '__main__':
     table.pack(fill=BOTH, expand=YES)
 
     row = 0
-    for ele in data_ls:
+    for ele in range(data_stk.size()):
         table.insert(parent="",
                      index=row,
-                     values=ele)
+                     values=data_stk.pop())
         row += 1
 
     # ======================= 3.CHECK OUT Frame Code ================
