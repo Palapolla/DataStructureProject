@@ -275,6 +275,7 @@ def fillout(e):
     
 
 # Create function to check entry vs listbox
+# search
 def check(e):
 	# grab what was typed
 	typed = checkoutEntry.get()
@@ -534,9 +535,9 @@ if __name__ == '__main__':
                 "dateIn",
                 "dateOut"]
     data_ls = []
-    data_ls = update_data()
     data_stk = Stack()
     data_stk = update_stack_data()
+    data_ls = update_data()
 
     guestListLabel = Label(guestList_Frame,
                             text="GUEST LIST",
